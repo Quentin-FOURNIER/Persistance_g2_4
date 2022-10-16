@@ -21,7 +21,7 @@ public class XMLVisitor implements Visitor {
 
     @Override
     public void visit(Circle circle) {
-    	this.representation =  "<shape>type>circle</type>" +
+    	this.representation =  "<shape><type>circle</type>" +
 				String.format(XSTRING, circle.getX()) +
 				String.format(YSTRING, circle.getY()) +
 				SHAPE;

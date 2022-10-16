@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+<shapes>
+<shape><type>triangle</type><x>254</x><y>125</y></shape>
+<shape><type>triangle</type><x>330</x><y>6</y></shape>
+<shape><type>circle</type><x>43</x><y>24</y></shape>
+<shape><type>circle</type><x>94</x><y>29</y></shape>
+<shape><type>circle</type><x>94</x><y>29</y></shape>
+<shape><type>square</type><x>72</x><y>54</y></shape>
+<shape><type>square</type><x>65</x><y>94</y></shape>
+<shape><type>square</type><x>67</x><y>137</y></shape>
+</shapes>
+</root>
