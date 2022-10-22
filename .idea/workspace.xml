@@ -5,21 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d724364-c096-4ae0-9361-37e145464136" name="Changes" comment="Push après import json">
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/0/1034db1577fd0ddae0222c6db48c7977b0140aae" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/6/66a8a27b816bf50c2cda7d568f25f222add3a95d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/b/6badc8f5d296a07f3f5095c7aba928ee42903901" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/a/7a6cbb31e3ea3b39d70f0c8d48d7d350953541f1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/4/b417ee515febecc876f9a743544b94ff1a6c7dce" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/d/cde5d4456709a6aa6b523b3231f5a37b0467477e" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/a/fad004d4e84494b61ebb4b97f3a6981aff59cfb5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/f/ff906d7bcf6060f564c559ff376b10b9f8789af7" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/edu/uga/miage/m1/polygons/gui/shapes/CircleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/c/0c08f2f8d191e03ac565fdd45d0564704fd6e48e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/8/587d266bb27a4dc3022bbed44dfa19849df3044c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/9/691e97c639ef86eed00359f6e3e9413db372988b" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/0/a09d9862228535c50aab6abcd96dda3932bd461c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/a/aae6f372181523c15c92b9fc6014b9b069dbd15b" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exports/Export.json" beforeDir="false" afterPath="$PROJECT_DIR$/exports/Export.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/uga/miage/m1/polygons/gui/JDrawingFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/uga/miage/m1/polygons/gui/JDrawingFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/uga/miage/m1/polygons/gui/JDrawingFrameTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/uga/miage/m1/polygons/gui/shapes/SquareTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/uga/miage/m1/polygons/gui/shapes/SquareTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/uga/miage/m1/polygons/gui/shapes/TriangleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/uga/miage/m1/polygons/gui/shapes/TriangleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Persistance_g2_4-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Persistance_g2_4-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/sonar/.sonar_lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/sonar/report-task.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-edu.uga.miage.m1.polygons.gui.shapes.SquareTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-edu.uga.miage.m1.polygons.gui.shapes.SquareTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-edu.uga.miage.m1.polygons.gui.shapes.TriangleTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-edu.uga.miage.m1.polygons.gui.shapes.TriangleTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/edu.uga.miage.m1.polygons.gui.shapes.SquareTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/edu.uga.miage.m1.polygons.gui.shapes.SquareTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/edu.uga.miage.m1.polygons.gui.shapes.TriangleTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/edu.uga.miage.m1.polygons.gui.shapes.TriangleTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/shapes/SquareTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/shapes/SquareTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/shapes/TriangleTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/shapes/TriangleTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,29 +54,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Project.color": "58ffed",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
-    "last_opened_file_path": "C:/Users/loupc/Documents/cours/MASTER MIAGE/annee1/cours/Partron et Composant/Projet/Persistance_g2_4",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Project.color&quot;: &quot;58ffed&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/loupc/Documents/cours/MASTER MIAGE/annee1/cours/Partron et Composant/Projet/Persistance_g2_4&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Ecole\Master\Master_1\Semestre_1\Patrons et composants\Persistance_g2_4\src\main\java\edu\uga\miage\m1\polygons\gui" />
@@ -84,13 +93,13 @@
       <recent name="edu.uga.miage.m1.polygons.gui.shapes" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="edu.uga.miage.m1.polygons.gui" />
       <recent name="edu.uga.miage.m1.polygons.gui.shapes" />
+      <recent name="edu.uga.miage.m1.polygons.gui.persistence" />
+      <recent name="edu.uga.miage.m1.polygons.gui" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.edu.uga.miage.m1.polygons.gui.App">
-    <configuration name="edu.uga.miage.m1.polygons.gui.App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.App" />
+  <component name="RunManager" selected="JUnit.CircleTest">
+    <configuration name="CircleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Persistance_g2_4" />
       <extension name="coverage">
         <pattern>
@@ -98,22 +107,9 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in Persistance_g2_4 (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Persistance_g2_4" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in Persistance_g2_4" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Persistance_g2_4" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
+      <option name="PACKAGE_NAME" value="edu.uga.miage.m1.polygons.gui.shapes" />
+      <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.shapes.CircleTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -129,6 +125,38 @@
       <option name="PACKAGE_NAME" value="edu.uga.miage.m1.polygons.gui.shapes" />
       <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.shapes.SquareTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SquareTest.accept" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Persistance_g2_4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uga.miage.m1.polygons.gui.shapes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.uga.miage.m1.polygons.gui.shapes" />
+      <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.shapes.SquareTest" />
+      <option name="METHOD_NAME" value="accept" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SquareTest.draw" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Persistance_g2_4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uga.miage.m1.polygons.gui.shapes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.uga.miage.m1.polygons.gui.shapes" />
+      <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.shapes.SquareTest" />
+      <option name="METHOD_NAME" value="draw" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -150,11 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.edu.uga.miage.m1.polygons.gui.App" />
-        <item itemvalue="JUnit.SquareTest" />
+        <item itemvalue="JUnit.CircleTest" />
         <item itemvalue="JUnit.TriangleTest" />
-        <item itemvalue="JUnit.All in Persistance_g2_4 (1)" />
-        <item itemvalue="JUnit.All in Persistance_g2_4" />
+        <item itemvalue="JUnit.SquareTest.draw" />
+        <item itemvalue="JUnit.SquareTest.accept" />
+        <item itemvalue="JUnit.SquareTest" />
       </list>
     </recent_temporary>
   </component>
@@ -190,6 +218,7 @@
       <workItem from="1665666757513" duration="249000" />
       <workItem from="1665734049123" duration="1224000" />
       <workItem from="1665910298578" duration="4346000" />
+      <workItem from="1666451318918" duration="2758000" />
     </task>
     <task id="LOCAL-00001" summary="Initial push">
       <created>1664871086529</created>
@@ -229,5 +258,10 @@
     <MESSAGE value="Initial push" />
     <MESSAGE value="Push après import json" />
     <option name="LAST_COMMIT_MESSAGE" value="Push après import json" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Persistance_g2_4$XMLVisitorTest.ic" NAME="XMLVisitorTest Coverage Results" MODIFIED="1666445548312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.uga.miage.m1.polygons.gui.persistence.*</FILTER>
+    </SUITE>
   </component>
 </project>

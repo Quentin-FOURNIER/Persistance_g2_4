@@ -1,5 +1,6 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
+import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -8,21 +9,19 @@ import static org.junit.Assert.*;
 public class TriangleTest {
 
     public Triangle triangle;
+    public XMLVisitor xmlVisitor;
 
     @Before
     public void setUp() throws Exception {
         triangle = new Triangle(12, 17);
+        xmlVisitor = new XMLVisitor();
     }
 
-//    @Test
-//    public void draw() {
-//        //
-//    }
-//
-//    @Test
-//    public void accept() {
-//        //
-//    }
+    @Test
+    public void accept() {
+        triangle.accept(xmlVisitor);
+        assertEquals("<shape><type>triangle</type><x>-13</x><y>-8</y></shape>", xmlVisitor.getRepresentation());
+    }
 
     @Test
     public void getX() {

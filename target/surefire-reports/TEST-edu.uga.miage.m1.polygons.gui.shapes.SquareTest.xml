@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="edu.uga.miage.m1.polygons.gui.shapes.SquareTest" time="0.002" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="edu.uga.miage.m1.polygons.gui.shapes.SquareTest" time="0.032" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="19"/>
@@ -65,7 +65,8 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase classname="edu.uga.miage.m1.polygons.gui.shapes.SquareTest" name="Square" time="0.002"/>
+  <testcase classname="edu.uga.miage.m1.polygons.gui.shapes.SquareTest" name="Square" time="0.003"/>
+  <testcase classname="edu.uga.miage.m1.polygons.gui.shapes.SquareTest" name="accept" time="0.029"/>
   <testcase classname="edu.uga.miage.m1.polygons.gui.shapes.SquareTest" name="getX" time="0"/>
   <testcase classname="edu.uga.miage.m1.polygons.gui.shapes.SquareTest" name="getY" time="0"/>
 </testsuite>

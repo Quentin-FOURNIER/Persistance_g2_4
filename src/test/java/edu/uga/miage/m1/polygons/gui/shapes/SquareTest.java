@@ -1,49 +1,42 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import edu.uga.miage.m1.polygons.gui.JDrawingFrame;
+import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.swing.*;
+import java.awt.*;
 
 import static org.junit.Assert.*;
 
 public class SquareTest {
     Square square;
-
-    @BeforeClass
-    public static void setUpClass()  {
-        // exécuté une fois avant tous les tests de cette classe
-    }
-
-    @AfterClass
-    public static void tearDownClass() {// exécuté une fois après tous les tests de cette classe}
-    }
-
-    @org.junit.Before
-    public void setUp() throws Exception {
+    XMLVisitor xmlVisitor;
+    @Before
+    public void setUp() {
         square = new Square(12, 17);
+        xmlVisitor = new XMLVisitor();
     }
 
-    @org.junit.Test
+    @Test
     public void Square() {
         assertEquals(12 - 25, square.x);
         assertEquals(17 - 25, square.y);
     }
 
-//    @org.junit.Test
-//    public void draw() {
-//        //
-//    }
-//
-//    @org.junit.Test
-//    public void accept() {
-//        //
-//    }
+    @Test
+    public void accept() {
+        square.accept(xmlVisitor);
+        assertEquals("<shape><type>square</type><x>-13</x><y>-8</y></shape>", xmlVisitor.getRepresentation());
+    }
 
-    @org.junit.Test
+    @Test
     public void getX() {
         assertEquals(12 - 25, square.getX());
     }
 
-    @org.junit.Test
+    @Test
     public void getY() {
         assertEquals(17 - 25, square.getY());
     }
