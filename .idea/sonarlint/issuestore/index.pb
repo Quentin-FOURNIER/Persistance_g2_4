@@ -1,8 +1,6 @@
 
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-v
-Fsrc/main/java/edu/uga/miage/m1/polygons/gui/persistence/Visitable.java,9/6/96a72e42d2aa3d64b69dc1dad5feaa5f38a1feba
 p
 @src/main/java/edu/uga/miage/m1/polygons/gui/shapes/Triangle.java,7/a/7a6cbb31e3ea3b39d70f0c8d48d7d350953541f1
 w
@@ -17,7 +15,5 @@ t
 Dsrc/main/java/edu/uga/miage/m1/polygons/gui/persistence/Visitor.java,a/a/aae6f372181523c15c92b9fc6014b9b069dbd15b
 n
 >src/main/java/edu/uga/miage/m1/polygons/gui/shapes/Square.java,6/9/691e97c639ef86eed00359f6e3e9413db372988b
-7
-pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
 r
 Bsrc/test/java/edu/uga/miage/m1/polygons/gui/shapes/CircleTest.java,7/e/7e94dd76108cde0a8cda24dffeed1fb7de828bb5

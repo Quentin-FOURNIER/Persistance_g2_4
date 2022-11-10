@@ -5,23 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d724364-c096-4ae0-9361-37e145464136" name="Changes" comment="Ajout coverage + coverage sur circle, square &amp; triangle sans test sur l'ihm.">
-      <change afterPath="$PROJECT_DIR$/src/test/java/edu/uga/miage/m1/polygons/gui/persistence/JSonVisitorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/a/7ae6e7f4eb3971619796ade23d0b1b3d805d6ce5" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/uga/miage/m1/polygons/gui/JDrawingFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/uga/miage/m1/polygons/gui/JDrawingFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Persistance_g2_4-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Persistance_g2_4-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$ExportJSONActionListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$ExportJSONActionListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$ExportXMLActionListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$ExportXMLActionListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$FileType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$FileType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$ImportActionListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$ImportActionListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$ShapeActionListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame$ShapeActionListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/JDrawingFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-edu.uga.miage.m1.polygons.gui.shapes.SquareTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-edu.uga.miage.m1.polygons.gui.shapes.SquareTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-edu.uga.miage.m1.polygons.gui.shapes.TriangleTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-edu.uga.miage.m1.polygons.gui.shapes.TriangleTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/edu.uga.miage.m1.polygons.gui.shapes.SquareTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/edu.uga.miage.m1.polygons.gui.shapes.SquareTest.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +84,20 @@
       <recent name="edu.uga.miage.m1.polygons.gui" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.JSonVisitorTest">
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.App" />
+      <module name="Persistance_g2_4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uga.miage.m1.polygons.gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CircleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Persistance_g2_4" />
       <extension name="coverage">
@@ -117,21 +123,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="edu.uga.miage.m1.polygons.gui.persistence" />
       <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.persistence.JSonVisitorTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TriangleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Persistance_g2_4" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.uga.miage.m1.polygons.gui.shapes.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="edu.uga.miage.m1.polygons.gui.shapes" />
-      <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.shapes.TriangleTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -170,11 +161,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.App" />
         <item itemvalue="JUnit.JSonVisitorTest" />
         <item itemvalue="JUnit.XMLVisitorTest" />
         <item itemvalue="JUnit.XMLVisitorTest.visit" />
         <item itemvalue="JUnit.CircleTest" />
-        <item itemvalue="JUnit.TriangleTest" />
       </list>
     </recent_temporary>
   </component>

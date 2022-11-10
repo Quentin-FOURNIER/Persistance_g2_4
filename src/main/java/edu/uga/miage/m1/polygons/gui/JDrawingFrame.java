@@ -91,12 +91,15 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         JButton xmlButton = new JButton("Export XML");
         JButton jsonButton = new JButton("Export JSON");
         JButton importation = new JButton("Import");
+        JButton whiteBoard = new JButton("White board");
         xmlButton.addActionListener(new ExportXMLActionListener());
         jsonButton.addActionListener(new ExportJSONActionListener());
         importation.addActionListener(new ImportActionListener());
+        whiteBoard.addActionListener(new WhiteBoardActionListener());
         mainToolbar.add(xmlButton);
         mainToolbar.add(jsonButton);
         mainToolbar.add(importation);
+        mainToolbar.add(whiteBoard);
 
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
@@ -386,7 +389,18 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     }
 
-    private class ExportXMLActionListener implements ActionListener {
+    private class WhiteBoardActionListener implements ActionListener {
+
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            repaint();
+            // vide les exports
+            builderJSON.setLength(0);
+            builderXML.setLength(0);
+        }
+    }
+  private class ExportXMLActionListener implements ActionListener {
 
 
         @Override
