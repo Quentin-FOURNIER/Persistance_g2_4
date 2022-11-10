@@ -291,7 +291,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         try (FileWriter file = new FileWriter(path);) {
             file.write(data);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            Logger.getLogger(String.valueOf(Level.WARNING), ex.toString());
         }
     }
 
@@ -358,7 +358,10 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setExpandEntityReferences(false);
+            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
             DocumentBuilder dBuilder = factory.newDocumentBuilder();
+
             Document doc = dBuilder.parse(new File(path));
             doc.getDocumentElement().normalize();
             NodeList nList = doc.getElementsByTagName("shape");
