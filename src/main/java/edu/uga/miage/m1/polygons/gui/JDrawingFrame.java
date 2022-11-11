@@ -1,9 +1,6 @@
 package edu.uga.miage.m1.polygons.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -12,8 +9,7 @@ import java.awt.event.MouseMotionListener;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.EnumMap;
+import java.util.*;
 import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -26,6 +22,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
 import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
+import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
 import edu.uga.miage.m1.polygons.gui.shapes.Square;
 import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
 import lombok.extern.java.Log;
@@ -35,9 +32,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static java.lang.Thread.sleep;
 
 /**
  * This class represents the main application class, which is a JFrame subclass
@@ -50,7 +48,6 @@ import java.util.logging.Logger;
 public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionListener {
 
     private enum Shapes {
-
         SQUARE, TRIANGLE, CIRCLE
     }
 
@@ -74,6 +71,10 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     private final StringBuilder builderXML = new StringBuilder();
 
     private final StringBuilder builderJSON = new StringBuilder();
+
+    private ArrayList<SimpleShape> saveShapes = new ArrayList<>();
+
+    public SimpleShape movableShape;
 
     /**
      * Tracks buttons to manage the background.
@@ -157,18 +158,23 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                     circle.draw(g2);
                     circle.accept(jsonVisitor);
                     circle.accept(xmlVisitor);
+                    saveShapes.add(circle);
+
                 }
                 case TRIANGLE -> {
                     Triangle triangle = new Triangle(evt.getX(), evt.getY());
                     triangle.draw(g2);
                     triangle.accept(jsonVisitor);
                     triangle.accept(xmlVisitor);
+                    saveShapes.add(triangle);
+
                 }
                 case SQUARE -> {
                     Square square = new Square(evt.getX(), evt.getY());
                     square.draw(g2);
                     square.accept(jsonVisitor);
                     square.accept(xmlVisitor);
+                    saveShapes.add(square);
                 }
 
 
@@ -204,7 +210,15 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
      * @param evt The associated mouse event.
      */
     public void mousePressed(MouseEvent evt) {
+        System.out.println(evt.getX() + " " + evt.getY());
         // x
+        for (SimpleShape ss: saveShapes) {
+            System.out.println(ss.getX() + " " + ss.getY());
+
+            if (ss.getX() + 50 >= evt.getX() && ss.getX() + 50<= evt.getX() + 53 && ss.getY() + 50>= evt.getY() && ss.getY() + 50<= evt.getY() + 53) {
+                movableShape = ss;
+            }
+        }
     }
 
     /**
@@ -215,6 +229,8 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
      */
     public void mouseReleased(MouseEvent evt) {
         //x
+        movableShape = null;
+        System.out.println("Relaché");
     }
 
     /**
@@ -225,6 +241,47 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
      */
     public void mouseDragged(MouseEvent evt) {
         // x
+        if (movableShape != null) {
+            movableShape.setX(evt.getX());
+            movableShape.setY(evt.getY());
+
+
+
+            //repaint();
+
+            Graphics2D g2 = (Graphics2D) mainPanel.getGraphics();
+            g2.setColor(Color.WHITE);
+            g2.fillRect(0,0, mainPanel.getWidth(), mainPanel.getHeight());
+            for (SimpleShape ss: saveShapes) {
+                ss.draw(g2);
+
+//                switch (ss) {
+//                    case CIRCLE -> {
+//                        Circle circle = new Circle(evt.getX(), evt.getY());
+//                        circle.draw(g2);
+//                        circle.accept(jsonVisitor);
+//                        circle.accept(xmlVisitor);
+//                        saveShapes.add(circle);
+//
+//                    }
+//                    case TRIANGLE -> {
+//                        Triangle triangle = new Triangle(evt.getX(), evt.getY());
+//                        triangle.draw(g2);
+//                        triangle.accept(jsonVisitor);
+//                        triangle.accept(xmlVisitor);
+//                        saveShapes.add(triangle);
+//
+//                    }
+//                    case SQUARE -> {
+//                        Square square = new Square(evt.getX(), evt.getY());
+//                        square.draw(g2);
+//                        square.accept(jsonVisitor);
+//                        square.accept(xmlVisitor);
+//                        saveShapes.add(square);
+//                    }
+            }
+        }
+
     }
 
     /**
