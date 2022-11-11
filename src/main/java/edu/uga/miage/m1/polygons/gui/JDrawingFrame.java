@@ -104,7 +104,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
         mainPanel.setLayout(null);
-        mainPanel.setMinimumSize(new Dimension(400, 400));
+        mainPanel.setMinimumSize(new Dimension(1000, 600));
         mainPanel.addMouseListener(this);
         mainPanel.addMouseMotionListener(this);
         mLabel = new JLabel(" ", SwingConstants.LEFT);
@@ -119,7 +119,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         addShape(Shapes.TRIANGLE, new ImageIcon(userDir + "/src/main/resources/images/triangle.png"));
         addShape(Shapes.CIRCLE, new ImageIcon(userDir + "/src/main/resources/images/circle.png"));
         //edu/uga/miage/m1/polygons/gui/
-        setPreferredSize(new Dimension(400, 400));
+        setPreferredSize(new Dimension(1000, 600));
     }
 
     /**
