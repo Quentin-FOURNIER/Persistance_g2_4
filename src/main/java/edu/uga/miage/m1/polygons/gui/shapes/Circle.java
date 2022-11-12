@@ -23,37 +23,51 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InvalidClassException;
+
+import edu.uga.miage.m1.polygons.gui.JDrawingFrame;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Circle extends JComponent implements SimpleShape, Visitable {
+
+    private static final String PATH_TO_IMAGE = "src/main/resources/images/";
 
     int x;
 
     int y;
 
     public Circle(int x, int y) {
-        this.x = x - 25;
-        this.y = y - 25;
+        this.x = x;
+        this.y = y;
+    }
+
+    private JComponent createShape(int posX, int posY) throws IOException {
+        String path;
+        BufferedImage myPicture = ImageIO.read(new File(PATH_TO_IMAGE + "circle.png"));
+        JLabel component = new JLabel(new ImageIcon(myPicture));
+        component.setSize(53, 53);
+        component.setLocation(posX - 25, posY - 25);
+        component.setVisible(true);
+        component.setName("Circle");
+        return component;
     }
 
     /**
      * Implements the <tt>SimpleShape.draw()</tt> method for painting
      * the shape.
-     * @param g2 The graphics object used for painting.
+     *
      */
-    public void draw(Graphics2D g2) {
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint gradient = new GradientPaint(x, y, Color.RED, (float)x + 50, y, Color.WHITE);
-        g2.setPaint(gradient);
-        g2.fill(new Ellipse2D.Double(x, y, 50, 50));
-        BasicStroke wideStroke = new BasicStroke(2.0f);
-        g2.setColor(Color.black);
-        g2.setStroke(wideStroke);
-        g2.draw(new Ellipse2D.Double(x, y, 50, 50));
+    public void draw(JPanel jPanel) throws IOException {
+        jPanel.add(createShape(x, y));
     }
 
     @Override

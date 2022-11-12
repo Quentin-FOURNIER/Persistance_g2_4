@@ -49,7 +49,7 @@ import static java.lang.Thread.sleep;
 @Log
 public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionListener {
 
-    private enum Shapes {
+    public enum Shapes {
         SQUARE, TRIANGLE, CIRCLE
     }
 
@@ -72,13 +72,13 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     private final transient JSonVisitor jsonVisitor = new JSonVisitor();
 
-    private final StringBuilder builderXML = new StringBuilder();
+    //private final StringBuilder builderXML = new StringBuilder();
 
-    private final StringBuilder builderJSON = new StringBuilder();
+    //private final StringBuilder builderJSON = new StringBuilder();
 
-    private ArrayList<SimpleShape> saveShapes = new ArrayList<>();
+    //private ArrayList<SimpleShape> saveShapes = new ArrayList<>();
 
-    public SimpleShape movableShape;
+    //public SimpleShape movableShape;
 
     /**
      * Tracks buttons to manage the background.
@@ -106,7 +106,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         JButton importation = new JButton("Import");
         JButton whiteBoard = new JButton("White board");
         xmlButton.addActionListener(new ExportXMLActionListener());
-        jsonButton.addActionListener(new ExportJSONActionListener());
+        //jsonButton.addActionListener(new ExportJSONActionListener());
         importation.addActionListener(new ImportActionListener());
         whiteBoard.addActionListener(new WhiteBoardActionListener());
         mainToolbar.add(xmlButton);
@@ -156,21 +156,6 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         repaint();
     }
 
-    private JComponent createShape(Shapes shape, int posX, int posY) throws IOException {
-        String path;
-        switch (shape) {
-            case CIRCLE -> path = PATH_TO_IMAGE + "circle.png";
-            case TRIANGLE -> path = PATH_TO_IMAGE + "triangle.png";
-            case SQUARE -> path = PATH_TO_IMAGE + "square.png";
-            default -> throw new InvalidClassException("Forme inconnue");
-        }
-        BufferedImage myPicture = ImageIO.read(new File(path));
-        JLabel component = new JLabel(new ImageIcon(myPicture));
-        component.setSize(53, 53);
-        component.setLocation(posX - 25, posY - 25);
-        component.setVisible(true);
-        return component;
-    }
 
     private JComponent getComponent(int x, int y) {
         // on recherche le premier composant qui correspond aux coordonnées de la souris
@@ -185,7 +170,27 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     public void mouseClicked(MouseEvent evt) {
         if (mainPanel.contains(evt.getX(), evt.getY()) && getComponent(evt.getX(), evt.getY()) == null) {
             try {
-                mainPanel.add(createShape(mainSelected, evt.getX(), evt.getY()));
+                //mainPanel.add(createShape(mainSelected, evt.getX(), evt.getY()));
+                switch (mainSelected) {
+                    case CIRCLE -> {
+                        Circle circle = new Circle(evt.getX(), evt.getY());
+                        circle.draw(mainPanel);
+                        circle.accept(jsonVisitor);
+                        circle.accept(xmlVisitor);
+                    }
+                    case TRIANGLE -> {
+                        Triangle triangle = new Triangle(evt.getX(), evt.getY());
+                        triangle.draw(mainPanel);
+                        triangle.accept(jsonVisitor);
+                        triangle.accept(xmlVisitor);
+                    }
+                    case SQUARE -> {
+                        Square square = new Square(evt.getX(), evt.getY());
+                        square.draw(mainPanel);
+                        square.accept(jsonVisitor);
+                        square.accept(xmlVisitor);
+                    }
+                }
                 mainPanel.repaint();
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -256,12 +261,12 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     private enum FileType {
         DOSSIER, FICHIER, BOTH
     }
-
-    /**
-     * Cette méthode permet d'ouvrir une fenêtre pour choisir l'emplacement du fichier
-     *
-     * @return chemin du fichier
-     */
+//
+//    /**
+//     * Cette méthode permet d'ouvrir une fenêtre pour choisir l'emplacement du fichier
+//     *
+//     * @return chemin du fichier
+//     */
     private String chooserPath(FileType type) {
         JFileChooser chooser;
         String path = "";
@@ -281,7 +286,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         }
         return path;
     }
-
+//
     private void writeFile(String path, String data) {
         try (FileWriter file = new FileWriter(path);) {
             file.write(data);
@@ -289,66 +294,66 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             Logger.getLogger(String.valueOf(Level.WARNING), ex.toString());
         }
     }
-
-    public String readFile(String path) {
-        String res = "";
-        try {
-            res = Files.readString(Path.of(path));
-        } catch (IOException ex) {
-            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur read File");
-        }
-        return res;
-    }
-
-
-    public void createShape(String type, int x, int y) {
-        Graphics2D g2 = (Graphics2D) mainPanel.getGraphics();
-        switch (type) {
-            case "triangle" -> drawShape(new Triangle(x, y), g2);
-            case "circle" -> drawShape(new Circle(x, y), g2);
-            case "square" -> drawShape(new Square(x, y), g2);
-            default -> throw new IllegalStateException("Unexpected value: " + type);
-        }
-    }
-
-    public void drawShape(Triangle t, Graphics2D g2) {
-        t.draw(g2);
-        t.accept(jsonVisitor);
-        t.accept(xmlVisitor);
-        saveExport();
-    }
-
-    public void drawShape(Square s, Graphics2D g2) {
-        s.draw(g2);
-        s.accept(jsonVisitor);
-        s.accept(xmlVisitor);
-        saveExport();
-    }
-
-    public void drawShape(Circle c, Graphics2D g2) {
-        c.draw(g2);
-        c.accept(jsonVisitor);
-        c.accept(xmlVisitor);
-        saveExport();
-    }
-
-    public void saveExport() {
-        builderXML.append(xmlVisitor.getRepresentation() + "\n");
-        builderJSON.append(jsonVisitor.getRepresentation() + "\n");
-    }
-
-    public void loadFromJSON(String data) {
-        try {
-            ObjectNode node = new ObjectMapper().readValue(data, ObjectNode.class);
-            for (JsonNode j : node.get("shapes")) {
-                createShape(j.get("type").asText(), j.get("x").asInt(), j.get("y").asInt());
-            }
-        } catch (JsonProcessingException e) {
-            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur load JSON");
-
-        }
-    }
-
+//
+//    public String readFile(String path) {
+//        String res = "";
+//        try {
+//            res = Files.readString(Path.of(path));
+//        } catch (IOException ex) {
+//            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur read File");
+//        }
+//        return res;
+//    }
+//
+//
+//    public void createShape(String type, int x, int y) {
+//        Graphics2D g2 = (Graphics2D) mainPanel.getGraphics();
+//        switch (type) {
+//            case "triangle" -> drawShape(new Triangle(x, y), g2);
+//            case "circle" -> drawShape(new Circle(x, y), g2);
+//            case "square" -> drawShape(new Square(x, y), g2);
+//            default -> throw new IllegalStateException("Unexpected value: " + type);
+//        }
+//    }
+//
+//    public void drawShape(Triangle t, Graphics2D g2) {
+//        //t.draw(g2);
+//        t.accept(jsonVisitor);
+//        t.accept(xmlVisitor);
+//        saveExport();
+//    }
+//
+//    public void drawShape(Square s, Graphics2D g2) {
+//        //s.draw(g2);
+//        s.accept(jsonVisitor);
+//        s.accept(xmlVisitor);
+//        saveExport();
+//    }
+//
+//    public void drawShape(Circle c, Graphics2D g2) {
+//        //c.draw(g2);
+//        c.accept(jsonVisitor);
+//        c.accept(xmlVisitor);
+//        saveExport();
+//    }
+//
+//    public void saveExport() {
+//        builderXML.append(xmlVisitor.getRepresentation() + "\n");
+//        builderJSON.append(jsonVisitor.getRepresentation() + "\n");
+//    }
+//
+//    public void loadFromJSON(String data) {
+//        try {
+//            ObjectNode node = new ObjectMapper().readValue(data, ObjectNode.class);
+//            for (JsonNode j : node.get("shapes")) {
+//                createShape(j.get("type").asText(), j.get("x").asInt(), j.get("y").asInt());
+//            }
+//        } catch (JsonProcessingException e) {
+//            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur load JSON");
+//
+//        }
+//    }
+//
     public void loadFromXML(String path) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -368,7 +373,22 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                 type = shape.getElementsByTagName("type").item(0).getTextContent();
                 y = Integer.parseInt(shape.getElementsByTagName("y").item(0).getTextContent());
                 x = Integer.parseInt(shape.getElementsByTagName("x").item(0).getTextContent());
-                createShape(type, x, y);
+                //createShape(type, x, y);
+                switch (type) {
+                    case "triangle" -> {
+                        Triangle triangle = new Triangle(x, y);
+                        triangle.draw(mainPanel);
+                    }
+                    case "square" -> {
+                        Square square = new Square(x, y);
+                        square.draw(mainPanel);
+                    }
+                    case "circle" -> {
+                        Circle circle = new Circle(x, y);
+                        circle.draw(mainPanel);
+                    }
+                }
+                repaint();
 
             }
         } catch (ParserConfigurationException e) {
@@ -386,46 +406,72 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            mainPanel.removeAll();
             repaint();
             // vide les exports
-            builderJSON.setLength(0);
-            builderXML.setLength(0);
+            //builderJSON.setLength(0);
+            //builderXML.setLength(0);
         }
     }
-  private class ExportXMLActionListener implements ActionListener {
-
-
+    private class ExportXMLActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String path;
-            StringBuilder xml;
-            path = chooserPath(FileType.DOSSIER);
-            xml = new StringBuilder();
-            xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<root>\r\n<shapes>\r\n");
-            xml.append(builderXML.toString());
-            xml.append("</shapes>\r\n" + "</root>");
-            writeFile(path + "/Export.xml", xml.toString());
 
+            String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><root><shapes>";
+
+            for (Component shape: mainPanel.getComponents()) {
+                switch (shape.getName()) {
+                    case "Triangle" -> {
+                        xmlString += "<shape><type>triangle</type><x>"+(shape.getX()+25)+"</x><y>"+(shape.getY()+25)+"</y></shape>";
+                    }
+                    case "Square" -> {
+                        xmlString += "<shape><type>square</type><x>"+(shape.getX()+25)+"</x><y>"+(shape.getY()+25)+"</y></shape>";
+                    }
+                    case "Circle" -> {
+                        xmlString += "<shape><type>circle</type><x>"+(shape.getX()+25)+"</x><y>"+(shape.getY()+25)+"</y></shape>";
+                    }
+                }
+
+            }
+
+            xmlString += "</shapes></root>";
+            String path = chooserPath(FileType.DOSSIER);
+            writeFile(path + "/Export.xml", xmlString);
         }
     }
-
-    private class ExportJSONActionListener implements ActionListener {
-
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String path;
-            StringBuilder json;
-            path = chooserPath(FileType.DOSSIER);
-            json = new StringBuilder();
-            json.append("{\n \"shapes\": [\n");
-            json.append(builderJSON.toString());
-            json.append("] \n}");
-            writeFile(path + "/Export.json", json.toString().replace("}\n{", "},\n{"));
-
-        }
-    }
-
+//
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            String path;
+//            StringBuilder xml;
+//            path = chooserPath(FileType.DOSSIER);
+//            xml = new StringBuilder();
+//            xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<root>\r\n<shapes>\r\n");
+//            xml.append(builderXML.toString());
+//            xml.append("</shapes>\r\n" + "</root>");
+//            writeFile(path + "/Export.xml", xml.toString());
+//
+//        }
+//    }
+//
+//    private class ExportJSONActionListener implements ActionListener {
+//
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            String path;
+//            StringBuilder json;
+//            path = chooserPath(FileType.DOSSIER);
+//            json = new StringBuilder();
+//            json.append("{\n \"shapes\": [\n");
+//            json.append(builderJSON.toString());
+//            json.append("] \n}");
+//            writeFile(path + "/Export.json", json.toString().replace("}\n{", "},\n{"));
+//
+//        }
+//    }
+//
     private class ImportActionListener implements ActionListener {
 
         @Override
@@ -437,10 +483,11 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             if (type.isEmpty())
                 Logger.getLogger(String.valueOf(Level.WARNING), "Le fichier doit être de type json ou xml");
             else {
-
+                mainPanel.removeAll();
+                repaint();
                 switch (type.get(0)) {
                     case "xml" -> loadFromXML(path);
-                    case "json" -> loadFromJSON(readFile(path));
+                    //case "json" -> loadFromJSON(readFile(path));
                     default -> Logger.getLogger(String.valueOf(Level.WARNING), "Problème import");
                 }
             }

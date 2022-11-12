@@ -23,9 +23,17 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
 import java.awt.geom.GeneralPath;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /**
  * This inner class implements the triangle <tt>SimpleShape</tt> service.
@@ -39,9 +47,23 @@ public class Triangle implements SimpleShape, Visitable {
 
     int y;
 
+    private static final String PATH_TO_IMAGE = "src/main/resources/images/";
+
+
     public Triangle(int x, int y) {
-        this.x = x - 25;
-        this.y = y - 25;
+        this.x = x;
+        this.y = y;
+    }
+
+    private JComponent createShape(int posX, int posY) throws IOException {
+        String path;
+        BufferedImage myPicture = ImageIO.read(new File(PATH_TO_IMAGE + "triangle.png"));
+        JLabel component = new JLabel(new ImageIcon(myPicture));
+        component.setSize(53, 53);
+        component.setLocation(posX - 25, posY - 25);
+        component.setVisible(true);
+        component.setName("Triangle");
+        return component;
     }
 
     /**
@@ -49,23 +71,8 @@ public class Triangle implements SimpleShape, Visitable {
      * the shape.
      * @param g2 The graphics object used for painting.
      */
-    public void draw(Graphics2D g2) {
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint gradient = new GradientPaint(x, y, Color.GREEN, (float)x + 50, y, Color.WHITE);
-        g2.setPaint(gradient);
-        int[] xcoords = { x + 25, x, x + 50 };
-        int[] ycoords = {y, y + 50, y + 50 };
-        GeneralPath polygon = new GeneralPath(java.awt.geom.Path2D.WIND_EVEN_ODD, xcoords.length);
-        polygon.moveTo((float) x + 25, y);
-        for (int i = 0; i < xcoords.length; i++) {
-            polygon.lineTo(xcoords[i], ycoords[i]);
-        }
-        polygon.closePath();
-        g2.fill(polygon);
-        BasicStroke wideStroke = new BasicStroke(2.0f);
-        g2.setColor(Color.black);
-        g2.setStroke(wideStroke);
-        g2.draw(polygon);
+    public void draw(JPanel jPanel) throws IOException {
+        jPanel.add(createShape(x, y));
     }
 
     @Override

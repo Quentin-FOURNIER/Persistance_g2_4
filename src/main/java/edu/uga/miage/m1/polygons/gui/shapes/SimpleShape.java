@@ -1,6 +1,9 @@
 package edu.uga.miage.m1.polygons.gui.shapes;
 
+import javax.swing.*;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 /**
  * This interface defines the <tt>SimpleShape</tt> extension. This extension
@@ -14,7 +17,7 @@ public interface SimpleShape {
      * Method to draw the shape of the extension.
      * @param g2 The graphics object used for painting.
      */
-    void draw(Graphics2D g2);
+    void draw(JPanel jPanel) throws IOException;
 
     int getX();
 

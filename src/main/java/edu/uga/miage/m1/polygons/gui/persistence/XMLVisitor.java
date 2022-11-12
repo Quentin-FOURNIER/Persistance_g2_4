@@ -9,7 +9,8 @@ import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
  */
 public class XMLVisitor implements Visitor {
 
-    private String representation = "";
+	private String fileRepresentation = "";
+	private String representation = "";
 	private static final String XSTRING = "<x>%d</x>";
 	private static final String YSTRING = "<y>%d</y>";
 	private static final String SHAPE = "</shape>";
@@ -25,6 +26,8 @@ public class XMLVisitor implements Visitor {
 				String.format(XSTRING, circle.getX()) +
 				String.format(YSTRING, circle.getY()) +
 				SHAPE;
+
+		this.fileRepresentation += this.representation;
     }
 
     @Override
@@ -33,7 +36,9 @@ public class XMLVisitor implements Visitor {
 				String.format(XSTRING, square.getX()) +
 				String.format(YSTRING, square.getY()) +
 				SHAPE;
-    }
+
+		this.fileRepresentation += this.representation;
+	}
 
     @Override
     public void visit(Triangle triangle) {
@@ -41,6 +46,8 @@ public class XMLVisitor implements Visitor {
 				String.format(XSTRING, triangle.getX()) +
 				String.format(YSTRING, triangle.getY()) +
 				SHAPE;
+
+		this.fileRepresentation += this.representation;
     }
 
     /**
@@ -59,4 +66,10 @@ public class XMLVisitor implements Visitor {
     public String getRepresentation() {
     	return representation;
     }
+
+	public String getFileRepresentation() {
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><root><shapes>" +
+				this.fileRepresentation +
+				"</shapes></root>";
+	}
 }
