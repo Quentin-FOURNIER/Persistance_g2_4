@@ -27,7 +27,9 @@ import java.awt.geom.Ellipse2D;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
-public class Circle implements SimpleShape, Visitable {
+import javax.swing.*;
+
+public class Circle extends JComponent implements SimpleShape, Visitable {
 
     int x;
 
@@ -59,19 +61,13 @@ public class Circle implements SimpleShape, Visitable {
     	visitor.visit(this);
     }
 
+    @Override
     public int getX() {
         return x;
     }
 
+    @Override
     public int getY() {
         return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 }

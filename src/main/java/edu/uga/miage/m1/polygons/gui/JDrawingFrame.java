@@ -6,10 +6,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -54,6 +56,8 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private static final String PATH_TO_IMAGE = "src/main/resources/images/";
+
     private final JToolBar mainToolbar;
 
     private Shapes mainSelected;
@@ -81,14 +85,22 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
      */
     private final EnumMap<Shapes, JButton> mainButtons = new EnumMap<>(Shapes.class);
 
+
+    private boolean move = false;
+    private int relx;
+    private JComponent component;
+    private int rely;
+
+    private Container container;
+
     /**
      * Default constructor that populates the main window.
      */
     public JDrawingFrame(String frameName) {
         super(frameName);
-        // Instantiates components
-        mainToolbar = new JToolBar("Toolbar");
 
+        // TOOLBAR
+        mainToolbar = new JToolBar("Toolbar");
         JButton xmlButton = new JButton("Export XML");
         JButton jsonButton = new JButton("Export JSON");
         JButton importation = new JButton("Import");
@@ -102,6 +114,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         mainToolbar.add(importation);
         mainToolbar.add(whiteBoard);
 
+        // PANEL
         mainPanel = new JPanel();
         mainPanel.setBackground(Color.WHITE);
         mainPanel.setLayout(null);
@@ -143,154 +156,76 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         repaint();
     }
 
-    /**
-     * <tt>MouseListener</tt> interface to draw the selected shape into the drawing
-     * canvas.
-     *
-     * @param evt The associated mouse event.
-     */
+    private JComponent createShape(Shapes shape, int posX, int posY) throws IOException {
+        String path;
+        switch (shape) {
+            case CIRCLE -> path = PATH_TO_IMAGE + "circle.png";
+            case TRIANGLE -> path = PATH_TO_IMAGE + "triangle.png";
+            case SQUARE -> path = PATH_TO_IMAGE + "square.png";
+            default -> throw new InvalidClassException("Forme inconnue");
+        }
+        BufferedImage myPicture = ImageIO.read(new File(path));
+        JLabel component = new JLabel(new ImageIcon(myPicture));
+        component.setSize(53, 53);
+        component.setLocation(posX - 25, posY - 25);
+        component.setVisible(true);
+        return component;
+    }
+
+    private JComponent getComponent(int x, int y) {
+        // on recherche le premier composant qui correspond aux coordonnées de la souris
+        for(Component component : mainPanel.getComponents()) {
+            if ( component instanceof JComponent && component.getBounds().contains(x, y) ) {
+                return (JComponent)component;
+            }
+        }
+        return null;
+    }
+
     public void mouseClicked(MouseEvent evt) {
-        if (mainPanel.contains(evt.getX(), evt.getY())) {
-            Graphics2D g2 = (Graphics2D) mainPanel.getGraphics();
-            switch (mainSelected) {
-                case CIRCLE -> {
-                    Circle circle = new Circle(evt.getX(), evt.getY());
-                    circle.draw(g2);
-                    circle.accept(jsonVisitor);
-                    circle.accept(xmlVisitor);
-                    saveShapes.add(circle);
-
-                }
-                case TRIANGLE -> {
-                    Triangle triangle = new Triangle(evt.getX(), evt.getY());
-                    triangle.draw(g2);
-                    triangle.accept(jsonVisitor);
-                    triangle.accept(xmlVisitor);
-                    saveShapes.add(triangle);
-
-                }
-                case SQUARE -> {
-                    Square square = new Square(evt.getX(), evt.getY());
-                    square.draw(g2);
-                    square.accept(jsonVisitor);
-                    square.accept(xmlVisitor);
-                    saveShapes.add(square);
-                }
-
-
+        if (mainPanel.contains(evt.getX(), evt.getY()) && getComponent(evt.getX(), evt.getY()) == null) {
+            try {
+                mainPanel.add(createShape(mainSelected, evt.getX(), evt.getY()));
+                mainPanel.repaint();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            builderXML.append(xmlVisitor.getRepresentation()).append("\n");
-            builderJSON.append(jsonVisitor.getRepresentation()).append("\n");
         }
     }
 
-    /**
-     * Implements an empty method for the <tt>MouseListener</tt> interface.
-     *
-     * @param evt The associated mouse event.
-     */
-    public void mouseEntered(MouseEvent evt) {
-        // x
-    }
+    public void mouseEntered(MouseEvent evt) { /* Pas d'action */ }
 
-    /**
-     * Implements an empty method for the <tt>MouseListener</tt> interface.
-     *
-     * @param evt The associated mouse event.
-     */
-    public void mouseExited(MouseEvent evt) {
-        mLabel.setText(" ");
-        mLabel.repaint();
-    }
+    public void mouseExited(MouseEvent evt) { /* Pas d'action */ }
 
-    /**
-     * Implements method for the <tt>MouseListener</tt> interface to initiate shape
-     * dragging.
-     *
-     * @param evt The associated mouse event.
-     */
     public void mousePressed(MouseEvent evt) {
-        System.out.println(evt.getX() + " " + evt.getY());
-        // x
-        for (SimpleShape ss: saveShapes) {
-            System.out.println(ss.getX() + " " + ss.getY());
 
-            if (ss.getX() + 50 >= evt.getX() && ss.getX() + 50<= evt.getX() + 53 && ss.getY() + 50>= evt.getY() && ss.getY() + 50<= evt.getY() + 53) {
-                movableShape = ss;
+        if ( move ) {
+            move=false;
+            component.setBorder(null);
+            component=null;
+        }
+        else {
+            component = getComponent(evt.getX(),evt.getY());
+            if ( component!=null ) {
+                mainPanel.setComponentZOrder(component,0);
+                relx = evt.getX()-component.getX();
+                rely = evt.getY()-component.getY();
+                move=true;
+                component.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             }
         }
     }
 
-    /**
-     * Implements method for the <tt>MouseListener</tt> interface to complete shape
-     * dragging.
-     *
-     * @param evt The associated mouse event.
-     */
-    public void mouseReleased(MouseEvent evt) {
-        //x
-        movableShape = null;
-        System.out.println("Relaché");
-    }
+    public void mouseReleased(MouseEvent evt) { /* Pas d'action */ }
 
-    /**
-     * Implements method for the <tt>MouseMotionListener</tt> interface to move a
-     * dragged shape.
-     *
-     * @param evt The associated mouse event.
-     */
-    public void mouseDragged(MouseEvent evt) {
-        // x
-        if (movableShape != null) {
-            movableShape.setX(evt.getX());
-            movableShape.setY(evt.getY());
+    public void mouseDragged(MouseEvent evt) { /* Pas d'action */ }
 
-
-
-            //repaint();
-
-            Graphics2D g2 = (Graphics2D) mainPanel.getGraphics();
-            g2.setColor(Color.WHITE);
-            g2.fillRect(0,0, mainPanel.getWidth(), mainPanel.getHeight());
-            for (SimpleShape ss: saveShapes) {
-                ss.draw(g2);
-
-//                switch (ss) {
-//                    case CIRCLE -> {
-//                        Circle circle = new Circle(evt.getX(), evt.getY());
-//                        circle.draw(g2);
-//                        circle.accept(jsonVisitor);
-//                        circle.accept(xmlVisitor);
-//                        saveShapes.add(circle);
-//
-//                    }
-//                    case TRIANGLE -> {
-//                        Triangle triangle = new Triangle(evt.getX(), evt.getY());
-//                        triangle.draw(g2);
-//                        triangle.accept(jsonVisitor);
-//                        triangle.accept(xmlVisitor);
-//                        saveShapes.add(triangle);
-//
-//                    }
-//                    case SQUARE -> {
-//                        Square square = new Square(evt.getX(), evt.getY());
-//                        square.draw(g2);
-//                        square.accept(jsonVisitor);
-//                        square.accept(xmlVisitor);
-//                        saveShapes.add(square);
-//                    }
-            }
-        }
-
-    }
-
-    /**
-     * Implements an empty method for the <tt>MouseMotionListener</tt> interface.
-     *
-     * @param evt The associated mouse event.
-     */
     public void mouseMoved(MouseEvent evt) {
         modifyLabel(evt);
+        if ( move ) {
+            // si on déplace
+            component.setLocation(evt.getX()-relx, evt.getY()-rely);
+        }
     }
 
     private void modifyLabel(MouseEvent evt) {
