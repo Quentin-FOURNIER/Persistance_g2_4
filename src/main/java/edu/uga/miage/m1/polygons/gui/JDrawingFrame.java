@@ -106,7 +106,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         JButton importation = new JButton("Import");
         JButton whiteBoard = new JButton("White board");
         xmlButton.addActionListener(new ExportXMLActionListener());
-        //jsonButton.addActionListener(new ExportJSONActionListener());
+        jsonButton.addActionListener(new ExportJSONActionListener());
         importation.addActionListener(new ImportActionListener());
         whiteBoard.addActionListener(new WhiteBoardActionListener());
         mainToolbar.add(xmlButton);
@@ -295,15 +295,15 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         }
     }
 //
-//    public String readFile(String path) {
-//        String res = "";
-//        try {
-//            res = Files.readString(Path.of(path));
-//        } catch (IOException ex) {
-//            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur read File");
-//        }
-//        return res;
-//    }
+    public String readFile(String path) {
+        String res = "";
+        try {
+            res = Files.readString(Path.of(path));
+        } catch (IOException ex) {
+            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur read File");
+        }
+        return res;
+    }
 //
 //
 //    public void createShape(String type, int x, int y) {
@@ -342,17 +342,32 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 //        builderJSON.append(jsonVisitor.getRepresentation() + "\n");
 //    }
 //
-//    public void loadFromJSON(String data) {
-//        try {
-//            ObjectNode node = new ObjectMapper().readValue(data, ObjectNode.class);
-//            for (JsonNode j : node.get("shapes")) {
-//                createShape(j.get("type").asText(), j.get("x").asInt(), j.get("y").asInt());
-//            }
-//        } catch (JsonProcessingException e) {
-//            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur load JSON");
-//
-//        }
-//    }
+    public void loadFromJSON(String data) {
+        try {
+            ObjectNode node = new ObjectMapper().readValue(data, ObjectNode.class);
+            for (JsonNode j : node.get("shapes")) {
+                switch (j.get("type").asText()) {
+                    case "triangle" -> {
+                        Triangle triangle = new Triangle(j.get("x").asInt(), j.get("y").asInt());
+                        triangle.draw(mainPanel);
+                    }
+                    case "square" -> {
+                        Square square = new Square(j.get("x").asInt(), j.get("y").asInt());
+                        square.draw(mainPanel);
+                    }
+                    case "circle" -> {
+                        Circle circle = new Circle(j.get("x").asInt(), j.get("y").asInt());
+                        circle.draw(mainPanel);
+                    }
+                }
+                repaint();
+                //createShape(j.get("type").asText(), j.get("x").asInt(), j.get("y").asInt());
+            }
+        } catch (IOException e) {
+            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur load JSON");
+
+        }
+    }
 //
     public void loadFromXML(String path) {
         try {
@@ -455,22 +470,29 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 //        }
 //    }
 //
-//    private class ExportJSONActionListener implements ActionListener {
-//
-//
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            String path;
-//            StringBuilder json;
-//            path = chooserPath(FileType.DOSSIER);
-//            json = new StringBuilder();
-//            json.append("{\n \"shapes\": [\n");
-//            json.append(builderJSON.toString());
-//            json.append("] \n}");
-//            writeFile(path + "/Export.json", json.toString().replace("}\n{", "},\n{"));
-//
-//        }
-//    }
+    private class ExportJSONActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String path = chooserPath(FileType.DOSSIER);
+            StringBuilder json = new StringBuilder();
+            json.append("{\n \"shapes\": [\n");
+            for (Component shape: mainPanel.getComponents()) {
+                switch (shape.getName()) {
+                    case "Triangle" -> json.append("{\"type\": \"triangle\",\"x\": ").append(shape.getX()).append(",\"y\": ").append(shape.getY()).append("}");
+                    case "Circle" -> json.append("{\"type\": \"circle\",\"x\": ").append(shape.getX()).append(",\"y\": ").append(shape.getY()).append("}");
+                    case "Square" -> json.append("{\"type\": \"square\",\"x\": ").append(shape.getX()).append(",\"y\": ").append(shape.getY()).append("}");
+
+                }
+                if (! shape.equals(mainPanel.getComponent(mainPanel.getComponents().length - 1))) {
+                    json.append(json.append("},"));
+                }
+            }
+            json.append("] \n}");
+            writeFile(path + "/Export.json", json.toString().replace("}\n{", "},\n{"));
+
+        }
+    }
 //
     private class ImportActionListener implements ActionListener {
 
@@ -487,7 +509,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                 repaint();
                 switch (type.get(0)) {
                     case "xml" -> loadFromXML(path);
-                    //case "json" -> loadFromJSON(readFile(path));
+                    case "json" -> loadFromJSON(readFile(path));
                     default -> Logger.getLogger(String.valueOf(Level.WARNING), "Problème import");
                 }
             }
