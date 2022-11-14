@@ -446,7 +446,6 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                         xmlString += "<shape><type>circle</type><x>"+(shape.getX()+25)+"</x><y>"+(shape.getY()+25)+"</y></shape>";
                     }
                 }
-
             }
 
             xmlString += "</shapes></root>";
@@ -478,18 +477,17 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             StringBuilder json = new StringBuilder();
             json.append("{\n \"shapes\": [\n");
             for (Component shape: mainPanel.getComponents()) {
+                System.out.println(shape.getName());
                 switch (shape.getName()) {
                     case "Triangle" -> json.append("{\"type\": \"triangle\",\"x\": ").append(shape.getX()).append(",\"y\": ").append(shape.getY()).append("}");
                     case "Circle" -> json.append("{\"type\": \"circle\",\"x\": ").append(shape.getX()).append(",\"y\": ").append(shape.getY()).append("}");
                     case "Square" -> json.append("{\"type\": \"square\",\"x\": ").append(shape.getX()).append(",\"y\": ").append(shape.getY()).append("}");
 
                 }
-                if (! shape.equals(mainPanel.getComponent(mainPanel.getComponents().length - 1))) {
-                    json.append(json.append("},"));
-                }
+
             }
             json.append("] \n}");
-            writeFile(path + "/Export.json", json.toString().replace("}\n{", "},\n{"));
+            writeFile(path + "/Export.json", json.toString().replace("}{", "},\n{"));
 
         }
     }
