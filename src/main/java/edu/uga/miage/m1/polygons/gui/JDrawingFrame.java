@@ -6,10 +6,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -82,27 +84,45 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     /**
      * Default constructor that populates the main window.
      */
-    public JDrawingFrame(String frameName) {
+    public JDrawingFrame(String frameName) throws IOException {
         super(frameName);
+
+        BufferedImage undoPicture = ImageIO.read(new File("src/main/resources/images/undo.png"));
+        BufferedImage redoPicture = ImageIO.read(new File("src/main/resources/images/redo.png"));
+        BufferedImage importPicture = ImageIO.read(new File("src/main/resources/images/import.png"));
+        BufferedImage exportPicture = ImageIO.read(new File("src/main/resources/images/export.png"));
+        BufferedImage groupPicture = ImageIO.read(new File("src/main/resources/images/group.png"));
+        BufferedImage binPicture = ImageIO.read(new File("src/main/resources/images/bin.png"));
+
 
         // TOOLBAR
         mainToolbar = new JToolBar("Toolbar");
-        JButton xmlButton = new JButton("Export XML");
-        JButton jsonButton = new JButton("Export JSON");
-        JButton importation = new JButton("Import");
-        JButton whiteBoard = new JButton("White board");
-        JToggleButton groupShapes = new JToggleButton("Group Shapes");
+        JButton xmlButton = new JButton("XML", new ImageIcon(exportPicture));
+        JButton jsonButton = new JButton("JSON", new ImageIcon(exportPicture));
+        JButton importation = new JButton(new ImageIcon(importPicture));
+        JButton whiteBoard = new JButton(new ImageIcon(binPicture));
+        JToggleButton groupShapes = new JToggleButton(new ImageIcon(groupPicture));
+        JButton undoButton = new JButton(new ImageIcon(undoPicture));
+        JButton redoButton = new JButton(new ImageIcon(redoPicture));
+
         xmlButton.addActionListener(new ExportXMLActionListener());
         jsonButton.addActionListener(new ExportJSONActionListener());
         importation.addActionListener(new ImportActionListener());
         whiteBoard.addActionListener(new WhiteBoardActionListener());
         groupShapes.addActionListener(new GroupShapesActionListener());
 
+        mainToolbar.add(undoButton);
+        mainToolbar.add(redoButton);
+        mainToolbar.addSeparator();
         mainToolbar.add(xmlButton);
         mainToolbar.add(jsonButton);
+        mainToolbar.addSeparator();
         mainToolbar.add(importation);
+        mainToolbar.addSeparator();
         mainToolbar.add(whiteBoard);
+        mainToolbar.addSeparator();
         mainToolbar.add(groupShapes);
+        mainToolbar.addSeparator();
 
         // PANEL
         mainPanel = new JPanel();

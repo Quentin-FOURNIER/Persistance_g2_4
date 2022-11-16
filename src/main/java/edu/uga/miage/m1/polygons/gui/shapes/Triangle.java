@@ -47,7 +47,7 @@ public class Triangle extends BaseShape implements SimpleShape, Visitable {
         super(positionX, positionY);
 
         this.setName("Triangle");
-        this.setLocation(this.getPositionX() - 25, this.getPositionY() - 25);
+        this.setLocation(positionX - 25, positionY - 25);
         BufferedImage myPicture = ImageIO.read(new File(PATH_TO_IMAGE + "triangle.png"));
         this.setIcon(new ImageIcon(myPicture));
 

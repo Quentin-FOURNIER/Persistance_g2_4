@@ -22,8 +22,8 @@ public class BaseShape extends JLabel implements SimpleShape, Visitable {
     public BaseShape(int positionX, int positionY) {
         this.shapes = new ArrayList<>();
 
-        this.positionX = positionX;
-        this.positionY = positionY;
+        //this.positionX = positionX;
+        //this.positionY = positionY;
 
         this.positionRelativeX = positionX;
         this.positionRelativeY = positionY;
@@ -32,21 +32,21 @@ public class BaseShape extends JLabel implements SimpleShape, Visitable {
         this.setSize(53, 53);
     }
 
-    public int getPositionX() {
-        return this.positionX;
-    }
-
-    public void setPositionX(int positionX) {
-        this.positionX = positionX;
-    }
-
-    public int getPositionY() {
-        return this.positionY;
-    }
-
-    public void setPositionY(int positionY) {
-        this.positionY = positionY;
-    }
+//    public int getPositionX() {
+//        return this.positionX;
+//    }
+//
+//    public void setPositionX(int positionX) {
+//        this.positionX = positionX;
+//    }
+//
+//    public int getPositionY() {
+//        return this.positionY;
+//    }
+//
+//    public void setPositionY(int positionY) {
+//        this.positionY = positionY;
+//    }
 
     public int getPositionRelativeX() {
         return positionRelativeX;

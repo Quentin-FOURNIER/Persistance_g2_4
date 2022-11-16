@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
@@ -14,15 +15,15 @@ public class SquareTest {
     Square square;
     XMLVisitor xmlVisitor;
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         square = new Square(12, 17);
         xmlVisitor = new XMLVisitor();
     }
 
     @Test
     public void Square() {
-        assertEquals(12 - 25, square.x);
-        assertEquals(17 - 25, square.y);
+        assertEquals(12 - 25, square.getPositionX());
+        assertEquals(17 - 25, square.getPositionY());
     }
 
     @Test
@@ -33,11 +34,11 @@ public class SquareTest {
 
     @Test
     public void getX() {
-        assertEquals(12 - 25, square.getX());
+        assertEquals(12 - 25, square.getPositionX());
     }
 
     @Test
     public void getY() {
-        assertEquals(17 - 25, square.getY());
+        assertEquals(17 - 25, square.getPositionY());
     }
 }

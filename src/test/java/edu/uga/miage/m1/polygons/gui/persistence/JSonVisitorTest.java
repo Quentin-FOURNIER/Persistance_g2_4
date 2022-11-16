@@ -16,9 +16,9 @@ public class JSonVisitorTest {
 
     @Before
     public void setUp() {
-        square = new Square(10, 10);
-        triangle = new Triangle(10, 10 );
-        circle = new Circle(10, 10);
+        //square = new Square(10, 10);
+        //triangle = new Triangle(10, 10 );
+        //circle = new Circle(10, 10);
         jsonVisitor = new JSonVisitor();
     }
 

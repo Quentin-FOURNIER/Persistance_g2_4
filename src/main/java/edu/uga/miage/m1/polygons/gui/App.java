@@ -1,5 +1,7 @@
 package edu.uga.miage.m1.polygons.gui;
 
+import java.io.IOException;
+
 /**
  * Hello world!
  *
@@ -7,7 +9,7 @@ package edu.uga.miage.m1.polygons.gui;
  */
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         GUIHelper.showOnFrame("test");
     }
 }

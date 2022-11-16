@@ -2,6 +2,7 @@ package edu.uga.miage.m1.polygons.gui;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import javax.swing.JFrame;
 
 /**
@@ -11,7 +12,7 @@ public class GUIHelper {
 
     private GUIHelper() {}
 
-    public static void showOnFrame(String frameName) {
+    public static void showOnFrame(String frameName) throws IOException {
         JFrame frame = new JDrawingFrame(frameName);
         WindowAdapter wa = new WindowAdapter() {
 
