@@ -15,7 +15,11 @@ public class BaseShape extends JLabel implements SimpleShape, Visitable {
     private int positionRelativeY;
     private ArrayList<BaseShape> shapes;
 
-    protected BaseShape(int positionX, int positionY) {
+    public BaseShape() {
+        this.shapes = new ArrayList<>();
+    }
+
+    public BaseShape(int positionX, int positionY) {
         this.shapes = new ArrayList<>();
 
         this.positionX = positionX;

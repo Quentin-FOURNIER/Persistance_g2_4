@@ -62,6 +62,8 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     private final transient JSonVisitor jsonVisitor = new JSonVisitor();
 
+    private ArrayList<BaseShape> groupOfShapesSelected = new ArrayList<>();
+
     /**
      * Tracks buttons to manage the background.
      */
@@ -70,6 +72,12 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     private boolean move = false;
     private BaseShape shape;
+
+    public boolean group = false;
+
+    private ArrayList<BaseShape> groupOfShapes = new ArrayList<>();
+
+    public BaseShape constructGroup = new BaseShape();
 
     /**
      * Default constructor that populates the main window.
@@ -83,14 +91,18 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         JButton jsonButton = new JButton("Export JSON");
         JButton importation = new JButton("Import");
         JButton whiteBoard = new JButton("White board");
+        JToggleButton groupShapes = new JToggleButton("Group Shapes");
         xmlButton.addActionListener(new ExportXMLActionListener());
         jsonButton.addActionListener(new ExportJSONActionListener());
         importation.addActionListener(new ImportActionListener());
         whiteBoard.addActionListener(new WhiteBoardActionListener());
+        groupShapes.addActionListener(new GroupShapesActionListener());
+
         mainToolbar.add(xmlButton);
         mainToolbar.add(jsonButton);
         mainToolbar.add(importation);
         mainToolbar.add(whiteBoard);
+        mainToolbar.add(groupShapes);
 
         // PANEL
         mainPanel = new JPanel();
@@ -146,23 +158,29 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     }
 
     public void mouseClicked(MouseEvent evt) {
-        if (mainPanel.contains(evt.getX(), evt.getY()) && getComponent(evt.getX(), evt.getY()) == null) {
+        if (mainPanel.contains(evt.getX(), evt.getY()) && getComponent(evt.getX(), evt.getY()) == null && !group) {
             try {
+
+                BaseShape newGroup = new BaseShape();
+                groupOfShapes.add(newGroup);
                 switch (mainSelected) {
                     case CIRCLE -> {
                         Circle circle = new Circle(evt.getX(), evt.getY());
+                        newGroup.getShapes().add(circle);
                         mainPanel.add(circle);
                         circle.accept(jsonVisitor);
                         circle.accept(xmlVisitor);
                     }
                     case TRIANGLE -> {
                         Triangle triangle = new Triangle(evt.getX(), evt.getY());
+                        newGroup.getShapes().add(triangle);
                         mainPanel.add(triangle);
                         triangle.accept(jsonVisitor);
                         triangle.accept(xmlVisitor);
                     }
                     case SQUARE -> {
                         Square square = new Square(evt.getX(), evt.getY());
+                        newGroup.getShapes().add(square);
                         mainPanel.add(square);
                         square.accept(jsonVisitor);
                         square.accept(xmlVisitor);
@@ -182,19 +200,46 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     public void mousePressed(MouseEvent evt) {
 
         if ( move ) {
+            for (BaseShape s: groupOfShapesSelected) {
+                s.setBorder(null);
+            }
             move=false;
-            shape.setBorder(null);
+            // shape.setBorder(null);
             shape =null;
         }
         else {
             shape = (BaseShape) getComponent(evt.getX(),evt.getY());
-            if ( shape !=null ) {
-                mainPanel.setComponentZOrder(shape,0);
-                shape.setPositionRelativeX(evt.getX()- shape.getX());
-                shape.setPositionRelativeY(evt.getY()- shape.getY());
-                move=true;
-                shape.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            if (! group) {
+
+
+                if ( shape !=null ) {
+
+                    for (BaseShape shapes: groupOfShapes) {
+                        if (shapes.getShapes().contains(shape)) {
+                            groupOfShapesSelected = shapes.getShapes();
+
+                        }
+                    }
+
+                    for (BaseShape s: groupOfShapesSelected) {
+                        mainPanel.setComponentZOrder(s,0);
+                        s.setPositionRelativeX(evt.getX()- s.getX());
+                        s.setPositionRelativeY(evt.getY()- s.getY());
+                        move=true;
+                        s.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                    }
+
+                }
+            } else {
+                if ( shape !=null ) {
+                    mainPanel.setComponentZOrder(shape,0);
+                    shape.setPositionRelativeX(evt.getX()- shape.getX());
+                    shape.setPositionRelativeY(evt.getY()- shape.getY());
+                    constructGroup.getShapes().add(shape);
+                    shape.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+                }
             }
+
         }
     }
 
@@ -206,7 +251,10 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         modifyLabel(evt);
         if ( move ) {
             // si on déplace
-            shape.setLocation(evt.getX()- shape.getPositionRelativeX(), evt.getY()- shape.getPositionRelativeY());
+            for (BaseShape s: groupOfShapesSelected) {
+                s.setLocation(evt.getX()- s.getPositionRelativeX(), evt.getY()- s.getPositionRelativeY());
+            }
+            // shape.setLocation(evt.getX()- shape.getPositionRelativeX(), evt.getY()- shape.getPositionRelativeY());
         }
     }
 
@@ -393,6 +441,27 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     }
 
+    private class GroupShapesActionListener implements ActionListener {
+
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            group = !group;
+            // xxxxx
+            if (!group) {
+                for (BaseShape cg: constructGroup.getShapes()) {
+                    cg.setBorder(null);
+                    for (BaseShape gos: groupOfShapes) {
+                        gos.getShapes().remove(cg);
+                    }
+                }
+
+                groupOfShapes.add(constructGroup);
+                constructGroup = new BaseShape();
+            }
+        }
+    }
+
     private class WhiteBoardActionListener implements ActionListener {
 
 
@@ -454,7 +523,6 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             StringBuilder json = new StringBuilder();
             json.append("{\n \"shapes\": [\n");
             for (Component shape: mainPanel.getComponents()) {
-                System.out.println(shape.getName());
                 switch (shape.getName()) {
                     case "Triangle" -> json.append("{\"type\": \"triangle\",\"x\": ").append(shape.getX()).append(",\"y\": ").append(shape.getY()).append("}");
                     case "Circle" -> json.append("{\"type\": \"circle\",\"x\": ").append(shape.getX()).append(",\"y\": ").append(shape.getY()).append("}");
