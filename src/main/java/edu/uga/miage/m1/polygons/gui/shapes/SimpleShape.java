@@ -13,14 +13,8 @@ import java.io.IOException;
  */
 public interface SimpleShape {
 
-    /**
-     * Method to draw the shape of the extension.
-     * @param g2 The graphics object used for painting.
-     */
-    void draw(JPanel jPanel) throws IOException;
+    String PATH_TO_IMAGE = "src/main/resources/images/";
+    //void draw(JPanel jPanel) throws IOException;
 
-    int getX();
-
-    int getY();
 
 }

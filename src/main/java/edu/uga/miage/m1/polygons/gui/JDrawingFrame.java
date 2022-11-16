@@ -6,27 +6,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
 import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
-import edu.uga.miage.m1.polygons.gui.shapes.Circle;
-import edu.uga.miage.m1.polygons.gui.shapes.SimpleShape;
-import edu.uga.miage.m1.polygons.gui.shapes.Square;
-import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
+import edu.uga.miage.m1.polygons.gui.shapes.*;
 import lombok.extern.java.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,8 +30,6 @@ import org.xml.sax.SAXException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static java.lang.Thread.sleep;
 
 /**
  * This class represents the main application class, which is a JFrame subclass
@@ -56,8 +48,6 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private static final String PATH_TO_IMAGE = "src/main/resources/images/";
-
     private final JToolBar mainToolbar;
 
     private Shapes mainSelected;
@@ -72,14 +62,6 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     private final transient JSonVisitor jsonVisitor = new JSonVisitor();
 
-    //private final StringBuilder builderXML = new StringBuilder();
-
-    //private final StringBuilder builderJSON = new StringBuilder();
-
-    //private ArrayList<SimpleShape> saveShapes = new ArrayList<>();
-
-    //public SimpleShape movableShape;
-
     /**
      * Tracks buttons to manage the background.
      */
@@ -87,11 +69,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
 
     private boolean move = false;
-    private int relx;
-    private JComponent component;
-    private int rely;
-
-    private Container container;
+    private BaseShape shape;
 
     /**
      * Default constructor that populates the main window.
@@ -157,11 +135,11 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     }
 
 
-    private JComponent getComponent(int x, int y) {
+    private JLabel getComponent(int x, int y) {
         // on recherche le premier composant qui correspond aux coordonnées de la souris
         for(Component component : mainPanel.getComponents()) {
             if ( component instanceof JComponent && component.getBounds().contains(x, y) ) {
-                return (JComponent)component;
+                return (JLabel) component;
             }
         }
         return null;
@@ -170,23 +148,22 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     public void mouseClicked(MouseEvent evt) {
         if (mainPanel.contains(evt.getX(), evt.getY()) && getComponent(evt.getX(), evt.getY()) == null) {
             try {
-                //mainPanel.add(createShape(mainSelected, evt.getX(), evt.getY()));
                 switch (mainSelected) {
                     case CIRCLE -> {
                         Circle circle = new Circle(evt.getX(), evt.getY());
-                        circle.draw(mainPanel);
+                        mainPanel.add(circle);
                         circle.accept(jsonVisitor);
                         circle.accept(xmlVisitor);
                     }
                     case TRIANGLE -> {
                         Triangle triangle = new Triangle(evt.getX(), evt.getY());
-                        triangle.draw(mainPanel);
+                        mainPanel.add(triangle);
                         triangle.accept(jsonVisitor);
                         triangle.accept(xmlVisitor);
                     }
                     case SQUARE -> {
                         Square square = new Square(evt.getX(), evt.getY());
-                        square.draw(mainPanel);
+                        mainPanel.add(square);
                         square.accept(jsonVisitor);
                         square.accept(xmlVisitor);
                     }
@@ -206,17 +183,17 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
         if ( move ) {
             move=false;
-            component.setBorder(null);
-            component=null;
+            shape.setBorder(null);
+            shape =null;
         }
         else {
-            component = getComponent(evt.getX(),evt.getY());
-            if ( component!=null ) {
-                mainPanel.setComponentZOrder(component,0);
-                relx = evt.getX()-component.getX();
-                rely = evt.getY()-component.getY();
+            shape = (BaseShape) getComponent(evt.getX(),evt.getY());
+            if ( shape !=null ) {
+                mainPanel.setComponentZOrder(shape,0);
+                shape.setPositionRelativeX(evt.getX()- shape.getX());
+                shape.setPositionRelativeY(evt.getY()- shape.getY());
                 move=true;
-                component.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                shape.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             }
         }
     }
@@ -229,7 +206,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         modifyLabel(evt);
         if ( move ) {
             // si on déplace
-            component.setLocation(evt.getX()-relx, evt.getY()-rely);
+            shape.setLocation(evt.getX()- shape.getPositionRelativeX(), evt.getY()- shape.getPositionRelativeY());
         }
     }
 
@@ -349,15 +326,15 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                 switch (j.get("type").asText()) {
                     case "triangle" -> {
                         Triangle triangle = new Triangle(j.get("x").asInt(), j.get("y").asInt());
-                        triangle.draw(mainPanel);
+                        mainPanel.add(triangle);
                     }
                     case "square" -> {
                         Square square = new Square(j.get("x").asInt(), j.get("y").asInt());
-                        square.draw(mainPanel);
+                        mainPanel.add(square);
                     }
                     case "circle" -> {
                         Circle circle = new Circle(j.get("x").asInt(), j.get("y").asInt());
-                        circle.draw(mainPanel);
+                        mainPanel.add(circle);
                     }
                 }
                 repaint();
@@ -392,15 +369,15 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                 switch (type) {
                     case "triangle" -> {
                         Triangle triangle = new Triangle(x, y);
-                        triangle.draw(mainPanel);
+                        mainPanel.add(triangle);
                     }
                     case "square" -> {
                         Square square = new Square(x, y);
-                        square.draw(mainPanel);
+                        mainPanel.add(square);
                     }
                     case "circle" -> {
                         Circle circle = new Circle(x, y);
-                        circle.draw(mainPanel);
+                        mainPanel.add(circle);
                     }
                 }
                 repaint();

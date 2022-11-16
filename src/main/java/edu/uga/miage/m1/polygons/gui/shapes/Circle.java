@@ -37,51 +37,19 @@ import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class Circle extends JComponent implements SimpleShape, Visitable {
+public class Circle extends BaseShape implements SimpleShape, Visitable {
 
-    private static final String PATH_TO_IMAGE = "src/main/resources/images/";
+    public Circle(int positionX, int positionY) throws IOException {
+        super(positionX, positionY);
 
-    int x;
-
-    int y;
-
-    public Circle(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    private JComponent createShape(int posX, int posY) throws IOException {
-        String path;
+        this.setName("Circle");
+        this.setLocation(this.getPositionX() - 25, this.getPositionY() - 25);
         BufferedImage myPicture = ImageIO.read(new File(PATH_TO_IMAGE + "circle.png"));
-        JLabel component = new JLabel(new ImageIcon(myPicture));
-        component.setSize(53, 53);
-        component.setLocation(posX - 25, posY - 25);
-        component.setVisible(true);
-        component.setName("Circle");
-        return component;
-    }
-
-    /**
-     * Implements the <tt>SimpleShape.draw()</tt> method for painting
-     * the shape.
-     *
-     */
-    public void draw(JPanel jPanel) throws IOException {
-        jPanel.add(createShape(x, y));
+        this.setIcon(new ImageIcon(myPicture));
     }
 
     @Override
     public void accept(Visitor visitor) {
-    	visitor.visit(this);
-    }
-
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
+        visitor.visit(this);
     }
 }

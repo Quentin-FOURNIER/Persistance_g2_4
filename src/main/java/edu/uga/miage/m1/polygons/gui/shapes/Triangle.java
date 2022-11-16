@@ -41,53 +41,22 @@ import javax.swing.*;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Triangle implements SimpleShape, Visitable {
+public class Triangle extends BaseShape implements SimpleShape, Visitable {
 
-    int x;
+    public Triangle(int positionX, int positionY) throws IOException {
+        super(positionX, positionY);
 
-    int y;
-
-    private static final String PATH_TO_IMAGE = "src/main/resources/images/";
-
-
-    public Triangle(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    private JComponent createShape(int posX, int posY) throws IOException {
-        String path;
+        this.setName("Triangle");
+        this.setLocation(this.getPositionX() - 25, this.getPositionY() - 25);
         BufferedImage myPicture = ImageIO.read(new File(PATH_TO_IMAGE + "triangle.png"));
-        JLabel component = new JLabel(new ImageIcon(myPicture));
-        component.setSize(53, 53);
-        component.setLocation(posX - 25, posY - 25);
-        component.setVisible(true);
-        component.setName("Triangle");
-        return component;
-    }
+        this.setIcon(new ImageIcon(myPicture));
 
-    /**
-     * Implements the <tt>SimpleShape.draw()</tt> method for painting
-     * the shape.
-     * @param g2 The graphics object used for painting.
-     */
-    public void draw(JPanel jPanel) throws IOException {
-        jPanel.add(createShape(x, y));
+
     }
 
     @Override
     public void accept(Visitor visitor) {
     	visitor.visit(this);
-    }
-
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
     }
 
 }
