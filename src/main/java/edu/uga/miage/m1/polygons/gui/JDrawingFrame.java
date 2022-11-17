@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
 import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
 import edu.uga.miage.m1.polygons.gui.shapes.*;
+import edu.uga.miage.m1.polygons.gui.shapes.Shapes;
 import lombok.extern.java.Log;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -43,9 +44,7 @@ import java.util.logging.Logger;
 @Log
 public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionListener {
 
-    public enum Shapes {
-        SQUARE, TRIANGLE, CIRCLE
-    }
+
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -180,32 +179,13 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     public void mouseClicked(MouseEvent evt) {
         if (mainPanel.contains(evt.getX(), evt.getY()) && getComponent(evt.getX(), evt.getY()) == null && !group) {
             try {
-
                 BaseShape newGroup = new BaseShape();
                 groupOfShapes.add(newGroup);
-                switch (mainSelected) {
-                    case CIRCLE -> {
-                        Circle circle = new Circle(evt.getX(), evt.getY());
-                        newGroup.getShapes().add(circle);
-                        mainPanel.add(circle);
-                        circle.accept(jsonVisitor);
-                        circle.accept(xmlVisitor);
-                    }
-                    case TRIANGLE -> {
-                        Triangle triangle = new Triangle(evt.getX(), evt.getY());
-                        newGroup.getShapes().add(triangle);
-                        mainPanel.add(triangle);
-                        triangle.accept(jsonVisitor);
-                        triangle.accept(xmlVisitor);
-                    }
-                    case SQUARE -> {
-                        Square square = new Square(evt.getX(), evt.getY());
-                        newGroup.getShapes().add(square);
-                        mainPanel.add(square);
-                        square.accept(jsonVisitor);
-                        square.accept(xmlVisitor);
-                    }
-                }
+                BaseShape s = new ShapeFactory().createShape(mainSelected,evt.getX(), evt.getY());
+                newGroup.getShapes().add(s);
+                mainPanel.add(s);
+                s.accept(jsonVisitor);
+                s.accept(xmlVisitor);
                 mainPanel.repaint();
             } catch (IOException e) {
                 throw new RuntimeException(e);
