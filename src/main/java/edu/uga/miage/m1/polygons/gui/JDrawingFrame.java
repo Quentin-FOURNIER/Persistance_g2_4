@@ -45,7 +45,6 @@ import java.util.logging.Logger;
 public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionListener {
 
 
-
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -72,15 +71,14 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
 
     private boolean move = false;
-    private BaseShape shape;
 
-    public boolean group = false;
+    private boolean group = false;
 
     private ArrayList<BaseShape> groupOfShapes = new ArrayList<>();
 
-    public BaseShape constructGroup = new BaseShape();
+    private BaseShape constructGroup = new BaseShape();
 
-    public SavesPanels savesPanels = new SavesPanels();
+    private final transient SavesPanels savesPanels = new SavesPanels();
 
 
     /**
@@ -174,8 +172,8 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     private JLabel getComponent(int x, int y) {
         // on recherche le premier composant qui correspond aux coordonnées de la souris
-        for(Component component : mainPanel.getComponents()) {
-            if ( component instanceof JComponent && component.getBounds().contains(x, y) ) {
+        for (Component component : mainPanel.getComponents()) {
+            if (component instanceof JComponent && component.getBounds().contains(x, y)) {
                 return (JLabel) component;
             }
         }
@@ -187,16 +185,16 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             try {
                 BaseShape newGroup = new BaseShape();
                 groupOfShapes.add(newGroup);
-                BaseShape s = new ShapeFactory().createShape(mainSelected,evt.getX(), evt.getY());
+                BaseShape s = new ShapeFactory().createShape(mainSelected, evt.getX(), evt.getY());
                 newGroup.getShapes().add(s);
                 mainPanel.add(s);
                 ArrayList<BaseShape> aSupr = new ArrayList<>();
-                for (BaseShape bs: groupOfShapes) {
+                for (BaseShape bs : groupOfShapes) {
                     if (bs.getShapes().isEmpty()) {
                         aSupr.add(bs);
                     }
                 }
-                for (BaseShape bs: aSupr) {
+                for (BaseShape bs : aSupr) {
                     groupOfShapes.remove(bs);
                 }
                 savesPanels.addPanel(groupOfShapes);
@@ -206,7 +204,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                 mainPanel.repaint();
 
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new IllegalCallerException();
             }
         }
     }
@@ -215,55 +213,50 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     public void mouseExited(MouseEvent evt) { /* Pas d'action */ }
 
+    private void completeGroupOfShapes(BaseShape shape) {
+        for (BaseShape shapes : groupOfShapes) {
+            if (shapes.getShapes().contains(shape)) {
+                groupOfShapesSelected = shapes.getShapes();
+            }
+        }
+    }
+
     public void mousePressed(MouseEvent evt) {
 
-        if ( move ) {
-            for (BaseShape s: groupOfShapesSelected) {
+        BaseShape shape = (BaseShape) getComponent(evt.getX(), evt.getY());
+
+        if (move) {
+            for (BaseShape s : groupOfShapesSelected) {
                 s.setBorder(null);
             }
-            move=false;
-            // shape.setBorder(null);
-            shape =null;
+            move = false;
             try {
                 savesPanels.addPanel(groupOfShapes);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new IllegalCallerException();
             }
 
-        }
-        else {
-            shape = (BaseShape) getComponent(evt.getX(),evt.getY());
-            if (! group) {
+        } else if (!group && shape != null) {
 
+            completeGroupOfShapes(shape);
 
-                if ( shape !=null ) {
-
-                    for (BaseShape shapes: groupOfShapes) {
-                        if (shapes.getShapes().contains(shape)) {
-                            groupOfShapesSelected = shapes.getShapes();
-                        }
-                    }
-
-                    for (BaseShape s: groupOfShapesSelected) {
-                        //mainPanel.setComponentZOrder(s,0);
-                        s.setPositionRelativeX(evt.getX()- s.getX());
-                        s.setPositionRelativeY(evt.getY()- s.getY());
-                        move=true;
-                        s.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    }
-
-                }
-            } else {
-                if ( shape !=null ) {
-                    //mainPanel.setComponentZOrder(shape,0);
-                    shape.setPositionRelativeX(evt.getX()- shape.getX());
-                    shape.setPositionRelativeY(evt.getY()- shape.getY());
-                    constructGroup.getShapes().add(shape);
-                    shape.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-                }
+            for (BaseShape s : groupOfShapesSelected) {
+                s.setPositionRelativeX(evt.getX() - s.getX());
+                s.setPositionRelativeY(evt.getY() - s.getY());
+                move = true;
+                s.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             }
 
+
+        } else if (group && shape != null) {
+            shape.setPositionRelativeX(evt.getX() - shape.getX());
+            shape.setPositionRelativeY(evt.getY() - shape.getY());
+            constructGroup.getShapes().add(shape);
+            shape.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+
         }
+
+
     }
 
     public void mouseReleased(MouseEvent evt) { /* Pas d'action */ }
@@ -272,12 +265,11 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     public void mouseMoved(MouseEvent evt) {
         modifyLabel(evt);
-        if ( move ) {
+        if (move) {
             // si on déplace
-            for (BaseShape s: groupOfShapesSelected) {
-                s.setLocation(evt.getX()- s.getPositionRelativeX(), evt.getY()- s.getPositionRelativeY());
+            for (BaseShape s : groupOfShapesSelected) {
+                s.setLocation(evt.getX() - s.getPositionRelativeX(), evt.getY() - s.getPositionRelativeY());
             }
-            // shape.setLocation(evt.getX()- shape.getPositionRelativeX(), evt.getY()- shape.getPositionRelativeY());
 
         }
     }
@@ -293,7 +285,6 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     private class ShapeActionListener implements ActionListener {
 
         public void actionPerformed(ActionEvent evt) {
-            // Itere sur tous les boutons
             for (Map.Entry<Shapes, JButton> shape : mainButtons.entrySet()) {
                 JButton btn = shape.getValue();
                 if (evt.getActionCommand().equals(shape.getKey().toString())) {
@@ -310,12 +301,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     private enum FileType {
         DOSSIER, FICHIER, BOTH
     }
-//
-//    /**
-//     * Cette méthode permet d'ouvrir une fenêtre pour choisir l'emplacement du fichier
-//     *
-//     * @return chemin du fichier
-//     */
+
     private String chooserPath(FileType type) {
         JFileChooser chooser;
         String path = "";
@@ -335,15 +321,17 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         }
         return path;
     }
-//
+
+    //
     private void writeFile(String path, String data) {
-        try (FileWriter file = new FileWriter(path);) {
+        try (FileWriter file = new FileWriter(path)) {
             file.write(data);
         } catch (IOException ex) {
             Logger.getLogger(String.valueOf(Level.WARNING), ex.toString());
         }
     }
-//
+
+    //
     public String readFile(String path) {
         String res = "";
         try {
@@ -353,73 +341,37 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         }
         return res;
     }
-//
-//
-//    public void createShape(String type, int x, int y) {
-//        Graphics2D g2 = (Graphics2D) mainPanel.getGraphics();
-//        switch (type) {
-//            case "triangle" -> drawShape(new Triangle(x, y), g2);
-//            case "circle" -> drawShape(new Circle(x, y), g2);
-//            case "square" -> drawShape(new Square(x, y), g2);
-//            default -> throw new IllegalStateException("Unexpected value: " + type);
-//        }
-//    }
-//
-//    public void drawShape(Triangle t, Graphics2D g2) {
-//        //t.draw(g2);
-//        t.accept(jsonVisitor);
-//        t.accept(xmlVisitor);
-//        saveExport();
-//    }
-//
-//    public void drawShape(Square s, Graphics2D g2) {
-//        //s.draw(g2);
-//        s.accept(jsonVisitor);
-//        s.accept(xmlVisitor);
-//        saveExport();
-//    }
-//
-//    public void drawShape(Circle c, Graphics2D g2) {
-//        //c.draw(g2);
-//        c.accept(jsonVisitor);
-//        c.accept(xmlVisitor);
-//        saveExport();
-//    }
-//
-//    public void saveExport() {
-//        builderXML.append(xmlVisitor.getRepresentation() + "\n");
-//        builderJSON.append(jsonVisitor.getRepresentation() + "\n");
-//    }
-//
+
 
     public void loadFromJSON(String data) {
         try {
             ObjectNode node = new ObjectMapper().readValue(data, ObjectNode.class);
             String type;
-            BaseShape group;
+            BaseShape groupJson;
             BaseShape creationShape;
             ShapeFactory shapeFactory = new ShapeFactory();
             int x;
             int y;
             for (JsonNode j : node.get("shapes")) {
-                group = new BaseShape();
-                for (JsonNode shapeInGroupe: j.get("groupe") ) {
+                groupJson = new BaseShape();
+                for (JsonNode shapeInGroupe : j.get("groupe")) {
                     type = shapeInGroupe.get("type").asText();
                     x = shapeInGroupe.get("x").asInt();
                     y = shapeInGroupe.get("y").asInt();
                     creationShape = shapeFactory.createShape(shapeFactory.stringToEnum(type), x, y);
-                    group.getShapes().add(creationShape);
+                    groupJson.getShapes().add(creationShape);
                     mainPanel.add(creationShape);
 
                 }
-                groupOfShapes.add(group);
+                groupOfShapes.add(groupJson);
             }
         } catch (IOException e) {
             Logger.getLogger(String.valueOf(Level.WARNING), "Erreur load JSON");
 
         }
     }
-//
+
+    //
     public void loadFromXML(String path) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -432,13 +384,13 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             NodeList nList = doc.getElementsByTagName("groupe");
             NodeList elementsGroupe;
             String type;
-            BaseShape group;
+            BaseShape groupXml;
             BaseShape creationShape;
             ShapeFactory shapeFactory = new ShapeFactory();
             int x;
             int y;
             for (int i = 0; i < nList.getLength(); i++) {
-                group = new BaseShape();
+                groupXml = new BaseShape();
                 Element xmlGroupe = (Element) nList.item(i);
                 elementsGroupe = xmlGroupe.getElementsByTagName("shape");
                 for (int index = 0; index < elementsGroupe.getLength(); index++) {
@@ -447,10 +399,10 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                     y = Integer.parseInt(shape.getElementsByTagName("y").item(0).getTextContent());
                     x = Integer.parseInt(shape.getElementsByTagName("x").item(0).getTextContent());
                     creationShape = shapeFactory.createShape(shapeFactory.stringToEnum(type), x, y);
-                    group.getShapes().add(creationShape);
+                    groupXml.getShapes().add(creationShape);
                     mainPanel.add(creationShape);
                 }
-                groupOfShapes.add(group);
+                groupOfShapes.add(groupXml);
             }
 
         } catch (ParserConfigurationException e) {
@@ -471,9 +423,9 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             group = !group;
             // xxxxx
             if (!group) {
-                for (BaseShape cg: constructGroup.getShapes()) {
+                for (BaseShape cg : constructGroup.getShapes()) {
                     cg.setBorder(null);
-                    for (BaseShape gos: groupOfShapes) {
+                    for (BaseShape gos : groupOfShapes) {
                         gos.getShapes().remove(cg);
                     }
                 }
@@ -491,7 +443,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         public void actionPerformed(ActionEvent e) {
             mainPanel.removeAll();
             repaint();
-            groupOfShapes = new ArrayList<BaseShape>();
+            groupOfShapes = new ArrayList<>();
         }
     }
 
@@ -518,21 +470,21 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     private class ExportXMLActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            String finXdebY = "</x><y>";
+            String finY = "</y></shape>";
             StringBuilder xmlString = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\" ?><root><shapes>");
-            for (BaseShape s :groupOfShapes ) {
-                if(s.getShapes().size()>0) {
+            for (BaseShape s : groupOfShapes) {
+                if (!s.getShapes().isEmpty()) {
                     xmlString.append("<groupe>");
                     for (Component sp : s.getShapes()) {
                         switch (sp.getName()) {
-                            case "Triangle" -> {
-                                xmlString.append("<shape><type>triangle</type><x>" + (sp.getX() + 25) + "</x><y>" + (sp.getY() + 25) + "</y></shape>");
-                            }
-                            case "Square" -> {
-                                xmlString.append("<shape><type>square</type><x>" + (sp.getX() + 25) + "</x><y>" + (sp.getY() + 25) + "</y></shape>");
-                            }
-                            case "Circle" -> {
-                                xmlString.append("<shape><type>circle</type><x>" + (sp.getX() + 25) + "</x><y>" + (sp.getY() + 25) + "</y></shape>");
-                            }
+                            case "Triangle" ->
+                                    xmlString.append("<shape><type>triangle</type><x>").append(sp.getX() + 25).append(finXdebY).append(sp.getY() + 25).append(finY);
+                            case "Square" ->
+                                    xmlString.append("<shape><type>square</type><x>").append(sp.getX() + 25).append(finXdebY).append(sp.getY() + 25).append(finY);
+                            case "Circle" ->
+                                    xmlString.append("<shape><type>circle</type><x>").append(sp.getX() + 25).append(finXdebY).append(sp.getY() + 25).append(finY);
+                            default -> throw new IllegalCallerException();
                         }
                     }
                     xmlString.append("</groupe>");
@@ -550,30 +502,36 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            String debY = ",\"y\": ";
             String path = chooserPath(FileType.DOSSIER);
             StringBuilder json = new StringBuilder();
             json.append("{\n \"shapes\": [\n");
 
-            for (BaseShape s :groupOfShapes ) {
-                if(s.getShapes().size()>0) {
+            for (BaseShape s : groupOfShapes) {
+                if (!s.getShapes().isEmpty()) {
                     json.append("{\"groupe\":[");
                     for (Component sp : s.getShapes()) {
                         switch (sp.getName()) {
-                            case "Triangle" -> json.append("{\"type\": \"triangle\",\"x\": ").append(sp.getX()).append(",\"y\": ").append(sp.getY()).append("}");
-                            case "Circle" -> json.append("{\"type\": \"circle\",\"x\": ").append(sp.getX()).append(",\"y\": ").append(sp.getY()).append("}");
-                            case "Square" -> json.append("{\"type\": \"square\",\"x\": ").append(sp.getX()).append(",\"y\": ").append(sp.getY()).append("}");
-                            }
+                            case "Triangle" ->
+                                    json.append("{\"type\": \"triangle\",\"x\": ").append(sp.getX()).append(debY).append(sp.getY()).append("}");
+                            case "Circle" ->
+                                    json.append("{\"type\": \"circle\",\"x\": ").append(sp.getX()).append(debY).append(sp.getY()).append("}");
+                            case "Square" ->
+                                    json.append("{\"type\": \"square\",\"x\": ").append(sp.getX()).append(debY).append(sp.getY()).append("}");
+                            default -> throw new IllegalCallerException();
                         }
-                    json.append("]\n}");
                     }
+                    json.append("]\n}");
                 }
+            }
 
             json.append("] \n}");
             writeFile(path + "/Export.json", json.toString().replace("}{", "},\n{"));
 
         }
     }
-//
+
+    //
     private class ImportActionListener implements ActionListener {
 
         @Override
