@@ -18,18 +18,10 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.event.MouseEvent;
-import java.awt.geom.GeneralPath;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
 import javax.imageio.ImageIO;
@@ -41,7 +33,7 @@ import javax.swing.*;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Triangle extends BaseShape implements SimpleShape, Visitable {
+public class Triangle extends BaseShape {
 
     public Triangle(int positionX, int positionY) throws IOException {
         super(positionX, positionY);
@@ -59,6 +51,7 @@ public class Triangle extends BaseShape implements SimpleShape, Visitable {
     	visitor.visit(this);
     }
 
+    @Override
     public String toString() {
         return "Triangle [" + getX() + ", " + getY() + "]";
     }

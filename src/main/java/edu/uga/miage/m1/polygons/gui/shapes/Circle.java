@@ -18,26 +18,16 @@
  */
 package edu.uga.miage.m1.polygons.gui.shapes;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InvalidClassException;
 
-import edu.uga.miage.m1.polygons.gui.JDrawingFrame;
-import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class Circle extends BaseShape implements SimpleShape, Visitable {
+public class Circle extends BaseShape {
 
     public Circle(int positionX, int positionY) throws IOException {
         super(positionX, positionY);
@@ -53,6 +43,7 @@ public class Circle extends BaseShape implements SimpleShape, Visitable {
         visitor.visit(this);
     }
 
+    @Override
     public String toString() {
         return "Circle [" + getX() + ", " + getY() + "]";
     }
