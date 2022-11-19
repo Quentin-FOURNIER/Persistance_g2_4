@@ -4,6 +4,8 @@ import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
 import org.junit.Test;
 import org.junit.Before;
 
+import java.io.IOException;
+
 import static org.junit.Assert.*;
 
 public class TriangleTest {
@@ -12,7 +14,7 @@ public class TriangleTest {
     public XMLVisitor xmlVisitor;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws IOException {
         triangle = new Triangle(12, 17);
         xmlVisitor = new XMLVisitor();
     }

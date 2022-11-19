@@ -23,9 +23,17 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /**
  * This class implements the square <tt>SimpleShape</tt> extension.
@@ -33,45 +41,26 @@ import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
  *
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
  */
-public class Square implements SimpleShape, Visitable {
+public class Square extends BaseShape implements SimpleShape, Visitable {
 
-    int x;
 
-    int y;
+    public Square(int positionX, int positionY) throws IOException {
+        super(positionX, positionY);
 
-    public Square(int x, int y) {
-        this.x = x - 25;
-        this.y = y - 25;
-    }
+        this.setName("Square");
+        this.setLocation(positionX - 25, positionY - 25);
+        BufferedImage myPicture = ImageIO.read(new File(PATH_TO_IMAGE + "square.png"));
+        this.setIcon(new ImageIcon(myPicture));
 
-    /**
-     * Implements the <tt>SimpleShape.draw()</tt> method for painting
-     * the shape.
-     * @param g2 The graphics object used for painting.
-     */
-    public void draw(Graphics2D g2) {
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint gradient = new GradientPaint(x, y, Color.BLUE, (float)x + 50, y, Color.WHITE);
-        g2.setPaint(gradient);
-        g2.fill(new Rectangle2D.Double(x, y, 50, 50));
-        BasicStroke wideStroke = new BasicStroke(2.0f);
-        g2.setColor(Color.black);
-        g2.setStroke(wideStroke);
-        g2.draw(new Rectangle2D.Double(x, y, 50, 50));
+
     }
 
     @Override
     public void accept(Visitor visitor) {
-    	visitor.visit(this);
+        visitor.visit(this);
     }
 
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
+    public String toString() {
+        return "Square [" + getX() + ", " + getY() + "]";
     }
 }

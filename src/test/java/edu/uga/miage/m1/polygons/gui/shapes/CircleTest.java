@@ -4,6 +4,8 @@ import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.*;
 
 public class CircleTest {
@@ -11,7 +13,7 @@ public class CircleTest {
     Circle circle;
     XMLVisitor xmlVisitor;
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         circle = new Circle(12, 17);
         xmlVisitor = new XMLVisitor();
     }
