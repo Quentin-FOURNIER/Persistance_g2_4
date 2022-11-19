@@ -14,4 +14,13 @@ public class ShapeFactory {
         };
     }
 
+    public Shapes stringToEnum(String type) {
+        return switch (type) {
+            case "circle" -> Shapes.CIRCLE;
+            case "triangle" -> Shapes.TRIANGLE;
+            case "square" -> Shapes.SQUARE;
+            default -> null;
+        };
+    }
+
 }
