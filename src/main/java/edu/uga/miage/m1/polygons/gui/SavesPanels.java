@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SavesPanels {
 
-    private List<List<BaseShape>> saves;
+    private final List<List<BaseShape>> saves;
 
     private int index;
 
@@ -39,12 +39,12 @@ public class SavesPanels {
 
             for (BaseShape shape: baseShape.getShapes()) {
 
-                switch (shape.getName()) {
-                    case "Triangle" -> tmpShape = new Triangle(shape.getX() + 25, shape.getY() + 25);
-                    case "Circle" -> tmpShape = new Circle(shape.getX() + 25, shape.getY() + 25);
-                    case "Square" -> tmpShape = new Square(shape.getX() + 25, shape.getY() + 25);
+                tmpShape = switch (shape.getName()) {
+                    case "Triangle" -> new Triangle(shape.getX() + 25, shape.getY() + 25);
+                    case "Circle" -> new Circle(shape.getX() + 25, shape.getY() + 25);
+                    case "Square" -> new Square(shape.getX() + 25, shape.getY() + 25);
                     default -> throw new IllegalArgumentException();
-                }
+                };
 
             }
             listBaseShape.add(tmpShape);
