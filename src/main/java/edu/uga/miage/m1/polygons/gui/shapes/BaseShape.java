@@ -26,6 +26,7 @@ public class BaseShape extends JLabel implements SimpleShape, Visitable {
 
         this.setVisible(true);
         this.setSize(53, 53);
+        this.setLocation(positionX - 25, positionY - 25);
     }
 
     public int getPositionRelativeX() {
