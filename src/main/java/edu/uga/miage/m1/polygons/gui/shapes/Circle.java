@@ -52,4 +52,8 @@ public class Circle extends BaseShape implements SimpleShape, Visitable {
     public void accept(Visitor visitor) {
         visitor.visit(this);
     }
+
+    public String toString() {
+        return "Circle [" + getX() + ", " + getY() + "]";
+    }
 }

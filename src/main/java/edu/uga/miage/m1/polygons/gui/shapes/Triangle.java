@@ -59,4 +59,8 @@ public class Triangle extends BaseShape implements SimpleShape, Visitable {
     	visitor.visit(this);
     }
 
+    public String toString() {
+        return "Triangle [" + getX() + ", " + getY() + "]";
+    }
+
 }

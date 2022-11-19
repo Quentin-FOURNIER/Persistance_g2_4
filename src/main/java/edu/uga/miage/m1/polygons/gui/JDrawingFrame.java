@@ -63,7 +63,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     private final transient JSonVisitor jsonVisitor = new JSonVisitor();
 
-    private ArrayList<BaseShape> groupOfShapesSelected = new ArrayList<>();
+    private List<BaseShape> groupOfShapesSelected = new ArrayList<>();
 
     /**
      * Tracks buttons to manage the background.
@@ -79,6 +79,9 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     private ArrayList<BaseShape> groupOfShapes = new ArrayList<>();
 
     public BaseShape constructGroup = new BaseShape();
+
+    public SavesPanels savesPanels = new SavesPanels();
+
 
     /**
      * Default constructor that populates the main window.
@@ -109,6 +112,8 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         importation.addActionListener(new ImportActionListener());
         whiteBoard.addActionListener(new WhiteBoardActionListener());
         groupShapes.addActionListener(new GroupShapesActionListener());
+        undoButton.addActionListener(new UndoActionListener());
+        redoButton.addActionListener(new RedoActionListener());
 
         mainToolbar.add(undoButton);
         mainToolbar.add(redoButton);
@@ -130,6 +135,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         mainPanel.setMinimumSize(new Dimension(1000, 600));
         mainPanel.addMouseListener(this);
         mainPanel.addMouseMotionListener(this);
+
         mLabel = new JLabel(" ", SwingConstants.LEFT);
         // Fills the panel
         setLayout(new BorderLayout());
@@ -184,9 +190,21 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                 BaseShape s = new ShapeFactory().createShape(mainSelected,evt.getX(), evt.getY());
                 newGroup.getShapes().add(s);
                 mainPanel.add(s);
+                ArrayList<BaseShape> aSupr = new ArrayList<>();
+                for (BaseShape bs: groupOfShapes) {
+                    if (bs.getShapes().isEmpty()) {
+                        aSupr.add(bs);
+                    }
+                }
+                for (BaseShape bs: aSupr) {
+                    groupOfShapes.remove(bs);
+                }
+                savesPanels.addPanel(groupOfShapes);
+
                 s.accept(jsonVisitor);
                 s.accept(xmlVisitor);
                 mainPanel.repaint();
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -206,6 +224,12 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             move=false;
             // shape.setBorder(null);
             shape =null;
+            try {
+                savesPanels.addPanel(groupOfShapes);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
         }
         else {
             shape = (BaseShape) getComponent(evt.getX(),evt.getY());
@@ -217,12 +241,11 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                     for (BaseShape shapes: groupOfShapes) {
                         if (shapes.getShapes().contains(shape)) {
                             groupOfShapesSelected = shapes.getShapes();
-
                         }
                     }
 
                     for (BaseShape s: groupOfShapesSelected) {
-                        mainPanel.setComponentZOrder(s,0);
+                        //mainPanel.setComponentZOrder(s,0);
                         s.setPositionRelativeX(evt.getX()- s.getX());
                         s.setPositionRelativeY(evt.getY()- s.getY());
                         move=true;
@@ -232,7 +255,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                 }
             } else {
                 if ( shape !=null ) {
-                    mainPanel.setComponentZOrder(shape,0);
+                    //mainPanel.setComponentZOrder(shape,0);
                     shape.setPositionRelativeX(evt.getX()- shape.getX());
                     shape.setPositionRelativeY(evt.getY()- shape.getY());
                     constructGroup.getShapes().add(shape);
@@ -255,6 +278,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                 s.setLocation(evt.getX()- s.getPositionRelativeX(), evt.getY()- s.getPositionRelativeY());
             }
             // shape.setLocation(evt.getX()- shape.getPositionRelativeX(), evt.getY()- shape.getPositionRelativeY());
+
         }
     }
 
@@ -474,6 +498,27 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             //builderXML.setLength(0);
         }
     }
+
+    private class UndoActionListener implements ActionListener {
+
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            savesPanels.undo(mainPanel);
+
+        }
+    }
+
+    private class RedoActionListener implements ActionListener {
+
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            savesPanels.redo(mainPanel);
+
+        }
+    }
+
     private class ExportXMLActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

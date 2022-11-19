@@ -9,6 +9,8 @@ public class Undo implements Command {
         if ( ! saves.isEmpty() ) {
             saves.remove(saves.size() - 1);
         }
+        //JPanel jPanel = (JPanel) saves.get(saves.size() - 1);
+
     }
 
     @Override

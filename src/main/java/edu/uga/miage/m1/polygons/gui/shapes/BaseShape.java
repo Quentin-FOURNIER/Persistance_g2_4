@@ -77,5 +77,10 @@ public class BaseShape extends JLabel implements SimpleShape, Visitable {
         throw new IllegalCallerException();
     }
 
-
+    public  String toString() {
+        String s = "";
+        for (BaseShape shape: shapes)
+            s += shape;
+        return "∞" + s + "∞";
+    }
 }
