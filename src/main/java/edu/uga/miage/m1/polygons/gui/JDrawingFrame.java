@@ -391,26 +391,28 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 //        builderJSON.append(jsonVisitor.getRepresentation() + "\n");
 //    }
 //
+
     public void loadFromJSON(String data) {
         try {
             ObjectNode node = new ObjectMapper().readValue(data, ObjectNode.class);
+            String type;
+            BaseShape group;
+            BaseShape creationShape;
+            ShapeFactory shapeFactory = new ShapeFactory();
+            int x;
+            int y;
             for (JsonNode j : node.get("shapes")) {
-                switch (j.get("type").asText()) {
-                    case "triangle" -> {
-                        Triangle triangle = new Triangle(j.get("x").asInt(), j.get("y").asInt());
-                        mainPanel.add(triangle);
-                    }
-                    case "square" -> {
-                        Square square = new Square(j.get("x").asInt(), j.get("y").asInt());
-                        mainPanel.add(square);
-                    }
-                    case "circle" -> {
-                        Circle circle = new Circle(j.get("x").asInt(), j.get("y").asInt());
-                        mainPanel.add(circle);
-                    }
+                group = new BaseShape();
+                for (JsonNode shapeInGroupe: j.get("groupe") ) {
+                    type = shapeInGroupe.get("type").asText();
+                    x = shapeInGroupe.get("x").asInt();
+                    y = shapeInGroupe.get("y").asInt();
+                    creationShape = shapeFactory.createShape(shapeFactory.stringToEnum(type), x, y);
+                    group.getShapes().add(creationShape);
+                    mainPanel.add(creationShape);
+
                 }
-                repaint();
-                //createShape(j.get("type").asText(), j.get("x").asInt(), j.get("y").asInt());
+                groupOfShapes.add(group);
             }
         } catch (IOException e) {
             Logger.getLogger(String.valueOf(Level.WARNING), "Erreur load JSON");
@@ -425,36 +427,32 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
             factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
             DocumentBuilder dBuilder = factory.newDocumentBuilder();
-
             Document doc = dBuilder.parse(new File(path));
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("shape");
+            NodeList nList = doc.getElementsByTagName("groupe");
+            NodeList elementsGroupe;
             String type;
+            BaseShape group;
+            BaseShape creationShape;
+            ShapeFactory shapeFactory = new ShapeFactory();
             int x;
             int y;
             for (int i = 0; i < nList.getLength(); i++) {
-                Element shape = (Element) nList.item(i);
-                type = shape.getElementsByTagName("type").item(0).getTextContent();
-                y = Integer.parseInt(shape.getElementsByTagName("y").item(0).getTextContent());
-                x = Integer.parseInt(shape.getElementsByTagName("x").item(0).getTextContent());
-                //createShape(type, x, y);
-                switch (type) {
-                    case "triangle" -> {
-                        Triangle triangle = new Triangle(x, y);
-                        mainPanel.add(triangle);
-                    }
-                    case "square" -> {
-                        Square square = new Square(x, y);
-                        mainPanel.add(square);
-                    }
-                    case "circle" -> {
-                        Circle circle = new Circle(x, y);
-                        mainPanel.add(circle);
-                    }
+                group = new BaseShape();
+                Element xmlGroupe = (Element) nList.item(i);
+                elementsGroupe = xmlGroupe.getElementsByTagName("shape");
+                for (int index = 0; index < elementsGroupe.getLength(); index++) {
+                    Element shape = (Element) elementsGroupe.item(index);
+                    type = shape.getElementsByTagName("type").item(0).getTextContent();
+                    y = Integer.parseInt(shape.getElementsByTagName("y").item(0).getTextContent());
+                    x = Integer.parseInt(shape.getElementsByTagName("x").item(0).getTextContent());
+                    creationShape = shapeFactory.createShape(shapeFactory.stringToEnum(type), x, y);
+                    group.getShapes().add(creationShape);
+                    mainPanel.add(creationShape);
                 }
-                repaint();
-
+                groupOfShapes.add(group);
             }
+
         } catch (ParserConfigurationException e) {
             Logger.getLogger(String.valueOf(Level.WARNING), "Erreur load XML : Parser");
         } catch (IOException e) {
@@ -493,9 +491,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         public void actionPerformed(ActionEvent e) {
             mainPanel.removeAll();
             repaint();
-            // vide les exports
-            //builderJSON.setLength(0);
-            //builderXML.setLength(0);
+            groupOfShapes = new ArrayList<BaseShape>();
         }
     }
 
@@ -522,44 +518,34 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     private class ExportXMLActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><root><shapes>";
-
-            for (Component shape: mainPanel.getComponents()) {
-                switch (shape.getName()) {
-                    case "Triangle" -> {
-                        xmlString += "<shape><type>triangle</type><x>"+(shape.getX()+25)+"</x><y>"+(shape.getY()+25)+"</y></shape>";
+            StringBuilder xmlString = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\" ?><root><shapes>");
+            for (BaseShape s :groupOfShapes ) {
+                if(s.getShapes().size()>0) {
+                    xmlString.append("<groupe>");
+                    for (Component sp : s.getShapes()) {
+                        switch (sp.getName()) {
+                            case "Triangle" -> {
+                                xmlString.append("<shape><type>triangle</type><x>" + (sp.getX() + 25) + "</x><y>" + (sp.getY() + 25) + "</y></shape>");
+                            }
+                            case "Square" -> {
+                                xmlString.append("<shape><type>square</type><x>" + (sp.getX() + 25) + "</x><y>" + (sp.getY() + 25) + "</y></shape>");
+                            }
+                            case "Circle" -> {
+                                xmlString.append("<shape><type>circle</type><x>" + (sp.getX() + 25) + "</x><y>" + (sp.getY() + 25) + "</y></shape>");
+                            }
+                        }
                     }
-                    case "Square" -> {
-                        xmlString += "<shape><type>square</type><x>"+(shape.getX()+25)+"</x><y>"+(shape.getY()+25)+"</y></shape>";
-                    }
-                    case "Circle" -> {
-                        xmlString += "<shape><type>circle</type><x>"+(shape.getX()+25)+"</x><y>"+(shape.getY()+25)+"</y></shape>";
-                    }
+                    xmlString.append("</groupe>");
                 }
             }
 
-            xmlString += "</shapes></root>";
+            xmlString.append("</shapes></root>");
             String path = chooserPath(FileType.DOSSIER);
-            writeFile(path + "/Export.xml", xmlString);
+            writeFile(path + "/Export.xml", xmlString.toString());
         }
     }
-//
-//
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            String path;
-//            StringBuilder xml;
-//            path = chooserPath(FileType.DOSSIER);
-//            xml = new StringBuilder();
-//            xml.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<root>\r\n<shapes>\r\n");
-//            xml.append(builderXML.toString());
-//            xml.append("</shapes>\r\n" + "</root>");
-//            writeFile(path + "/Export.xml", xml.toString());
-//
-//        }
-//    }
-//
+
+
     private class ExportJSONActionListener implements ActionListener {
 
         @Override
@@ -567,15 +553,21 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             String path = chooserPath(FileType.DOSSIER);
             StringBuilder json = new StringBuilder();
             json.append("{\n \"shapes\": [\n");
-            for (Component shape: mainPanel.getComponents()) {
-                switch (shape.getName()) {
-                    case "Triangle" -> json.append("{\"type\": \"triangle\",\"x\": ").append(shape.getX()).append(",\"y\": ").append(shape.getY()).append("}");
-                    case "Circle" -> json.append("{\"type\": \"circle\",\"x\": ").append(shape.getX()).append(",\"y\": ").append(shape.getY()).append("}");
-                    case "Square" -> json.append("{\"type\": \"square\",\"x\": ").append(shape.getX()).append(",\"y\": ").append(shape.getY()).append("}");
 
+            for (BaseShape s :groupOfShapes ) {
+                if(s.getShapes().size()>0) {
+                    json.append("{\"groupe\":[");
+                    for (Component sp : s.getShapes()) {
+                        switch (sp.getName()) {
+                            case "Triangle" -> json.append("{\"type\": \"triangle\",\"x\": ").append(sp.getX()).append(",\"y\": ").append(sp.getY()).append("}");
+                            case "Circle" -> json.append("{\"type\": \"circle\",\"x\": ").append(sp.getX()).append(",\"y\": ").append(sp.getY()).append("}");
+                            case "Square" -> json.append("{\"type\": \"square\",\"x\": ").append(sp.getX()).append(",\"y\": ").append(sp.getY()).append("}");
+                            }
+                        }
+                    json.append("]\n}");
+                    }
                 }
 
-            }
             json.append("] \n}");
             writeFile(path + "/Export.json", json.toString().replace("}{", "},\n{"));
 
