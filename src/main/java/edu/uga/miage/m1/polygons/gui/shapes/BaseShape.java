@@ -4,16 +4,15 @@ import edu.uga.miage.m1.polygons.gui.persistence.Visitable;
 import edu.uga.miage.m1.polygons.gui.persistence.Visitor;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BaseShape extends JLabel implements SimpleShape, Visitable {
 
-    private int positionX;
-    private int positionY;
+    public static final String PATH_TO_IMAGE = "src/main/resources/images/";
     private int positionRelativeX;
     private int positionRelativeY;
-    private ArrayList<BaseShape> shapes;
+    private List<BaseShape> shapes;
 
     public BaseShape() {
         this.shapes = new ArrayList<>();
@@ -22,31 +21,12 @@ public class BaseShape extends JLabel implements SimpleShape, Visitable {
     public BaseShape(int positionX, int positionY) {
         this.shapes = new ArrayList<>();
 
-        //this.positionX = positionX;
-        //this.positionY = positionY;
-
         this.positionRelativeX = positionX;
         this.positionRelativeY = positionY;
 
         this.setVisible(true);
         this.setSize(53, 53);
     }
-
-//    public int getPositionX() {
-//        return this.positionX;
-//    }
-//
-//    public void setPositionX(int positionX) {
-//        this.positionX = positionX;
-//    }
-//
-//    public int getPositionY() {
-//        return this.positionY;
-//    }
-//
-//    public void setPositionY(int positionY) {
-//        this.positionY = positionY;
-//    }
 
     public int getPositionRelativeX() {
         return positionRelativeX;
@@ -64,11 +44,11 @@ public class BaseShape extends JLabel implements SimpleShape, Visitable {
         this.positionRelativeY = positionRelativeY;
     }
 
-    public ArrayList<BaseShape> getShapes() {
+    public List<BaseShape> getShapes() {
         return shapes;
     }
 
-    public void setShapes(ArrayList<BaseShape> shapes) {
+    public void setShapes(List<BaseShape> shapes) {
         this.shapes = shapes;
     }
 
@@ -77,10 +57,11 @@ public class BaseShape extends JLabel implements SimpleShape, Visitable {
         throw new IllegalCallerException();
     }
 
+    @Override
     public  String toString() {
-        String s = "";
+        StringBuilder stringBuilder = new StringBuilder();
         for (BaseShape shape: shapes)
-            s += shape;
-        return "∞" + s + "∞";
+            stringBuilder.append(shape);
+        return stringBuilder.toString();
     }
 }
