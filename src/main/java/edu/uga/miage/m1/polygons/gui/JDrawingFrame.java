@@ -490,21 +490,20 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     private class ExportXMLActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String finXdebY = "</x><y>";
-            String finY = "</y></shape>";
+
             StringBuilder xmlString = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\" ?><root><shapes>");
+            ShapeFactory xmlFactory = new ShapeFactory();
+            BaseShape shapeCreator;
             for (BaseShape s : groupOfShapes) {
                 if (!s.getShapes().isEmpty()) {
                     xmlString.append("<groupe>");
                     for (Component sp : s.getShapes()) {
-                        switch (sp.getName()) {
-                            case "Triangle" ->
-                                    xmlString.append("<shape><type>triangle</type><x>").append(sp.getX() + 25).append(finXdebY).append(sp.getY() + 25).append(finY);
-                            case "Square" ->
-                                    xmlString.append("<shape><type>square</type><x>").append(sp.getX() + 25).append(finXdebY).append(sp.getY() + 25).append(finY);
-                            case "Circle" ->
-                                    xmlString.append("<shape><type>circle</type><x>").append(sp.getX() + 25).append(finXdebY).append(sp.getY() + 25).append(finY);
-                            default -> throw new IllegalCallerException();
+                        try {
+                            shapeCreator = xmlFactory.createShape(xmlFactory.stringToEnum(sp.getName()), sp.getX() + 25, sp.getY()+ 25);
+                            shapeCreator.accept(xmlVisitor);
+                            xmlString.append(xmlVisitor.getRepresentation());
+                        } catch (IOException ex) {
+                            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur export XML");
                         }
                     }
                     xmlString.append("</groupe>");
@@ -522,23 +521,21 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String debY = ",\"y\": ";
             String path = chooserPath(FileType.DOSSIER);
             StringBuilder json = new StringBuilder();
             json.append("{\n \"shapes\": [\n");
-
+            ShapeFactory jsonFactory = new ShapeFactory();
+            BaseShape shapeCreator;
             for (BaseShape s : groupOfShapes) {
                 if (!s.getShapes().isEmpty()) {
                     json.append("{\"groupe\":[");
                     for (Component sp : s.getShapes()) {
-                        switch (sp.getName()) {
-                            case "Triangle" ->
-                                    json.append("{\"type\": \"triangle\",\"x\": ").append(sp.getX()).append(debY).append(sp.getY()).append("}");
-                            case "Circle" ->
-                                    json.append("{\"type\": \"circle\",\"x\": ").append(sp.getX()).append(debY).append(sp.getY()).append("}");
-                            case "Square" ->
-                                    json.append("{\"type\": \"square\",\"x\": ").append(sp.getX()).append(debY).append(sp.getY()).append("}");
-                            default -> throw new IllegalCallerException();
+                        try {
+                            shapeCreator = jsonFactory.createShape(jsonFactory.stringToEnum(sp.getName()), sp.getX() + 25, sp.getY()+ 25);
+                            shapeCreator.accept(jsonVisitor);
+                            json.append(jsonVisitor.getRepresentation());
+                        } catch (IOException ex) {
+                            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur export JSON");
                         }
                     }
                     json.append("]\n}");

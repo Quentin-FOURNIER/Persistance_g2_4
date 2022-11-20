@@ -14,7 +14,7 @@ public class Triangle extends BaseShape {
     public Triangle(int positionX, int positionY) throws IOException {
         super(positionX, positionY);
 
-        this.setName("Triangle");
+        this.setName("triangle");
         this.setIcon(new ImageIcon(ImageIO.read(new File(PATH_TO_IMAGE + "triangle.png"))));
 
 

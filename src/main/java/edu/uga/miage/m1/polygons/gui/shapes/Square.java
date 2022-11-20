@@ -14,7 +14,7 @@ public class Square extends BaseShape {
     public Square(int positionX, int positionY) throws IOException {
         super(positionX, positionY);
 
-        this.setName("Square");
+        this.setName("square");
         this.setIcon(new ImageIcon(ImageIO.read(new File(PATH_TO_IMAGE + "square.png"))));
 
 

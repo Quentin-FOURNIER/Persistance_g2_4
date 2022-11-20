@@ -40,9 +40,9 @@ public class SavesPanels {
             for (BaseShape shape: baseShape.getShapes()) {
 
                 tmpShape = switch (shape.getName()) {
-                    case "Triangle" -> new Triangle(shape.getX() + 25, shape.getY() + 25);
-                    case "Circle" -> new Circle(shape.getX() + 25, shape.getY() + 25);
-                    case "Square" -> new Square(shape.getX() + 25, shape.getY() + 25);
+                    case "triangle" -> new Triangle(shape.getX() + 25, shape.getY() + 25);
+                    case "circle" -> new Circle(shape.getX() + 25, shape.getY() + 25);
+                    case "square" -> new Square(shape.getX() + 25, shape.getY() + 25);
                     default -> throw new IllegalArgumentException();
                 };
 

@@ -14,7 +14,7 @@ public class Circle extends BaseShape {
     public Circle(int positionX, int positionY) throws IOException {
         super(positionX, positionY);
 
-        this.setName("Circle");
+        this.setName("circle");
 
         this.setIcon(new ImageIcon(ImageIO.read(new File(PATH_TO_IMAGE + "circle.png"))));
     }
