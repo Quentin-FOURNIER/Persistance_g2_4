@@ -9,28 +9,23 @@ import java.io.IOException;
 import static org.junit.Assert.*;
 
 public class CircleTest {
+    Circle circle;
+    XMLVisitor xmlVisitor;
 
-//    Circle circle;
-//    XMLVisitor xmlVisitor;
-//    @Before
-//    public void setUp() throws IOException {
-//        circle = new Circle(12, 17);
-//        xmlVisitor = new XMLVisitor();
-//    }
-//
-//    @Test
-//    public void accept() {
-//        circle.accept(xmlVisitor);
-//        assertEquals("<shape><type>circle</type><x>-13</x><y>-8</y></shape>", xmlVisitor.getRepresentation());
-//    }
-//
-//    @Test
-//    public void getX() {
-//        assertEquals(12 - 25, circle.getX());
-//    }
-//
-//    @Test
-//    public void getY() {
-//        assertEquals(17 - 25, circle.getY());
-//    }
+    @Before
+    public void setUp() throws IOException {
+        circle = new Circle(100, 200);
+        xmlVisitor = new XMLVisitor();
+    }
+
+    @Test
+    public void accept() {
+        circle.accept(xmlVisitor);
+        assertEquals("<shape><type>circle</type><x>75</x><y>175</y></shape>", xmlVisitor.getRepresentation());
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals("Circle [75, 175]", circle.toString());
+    }
 }

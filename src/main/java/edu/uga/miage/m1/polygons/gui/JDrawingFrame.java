@@ -60,6 +60,18 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     private final transient XMLVisitor xmlVisitor = new XMLVisitor();
 
+    public XMLVisitor getXmlVisitor() {
+        return xmlVisitor;
+    }
+
+    public JSonVisitor getJsonVisitor() {
+        return jsonVisitor;
+    }
+
+    public List<BaseShape> getGroupOfShapesSelected() {
+        return groupOfShapesSelected;
+    }
+
     private final transient JSonVisitor jsonVisitor = new JSonVisitor();
 
     private List<BaseShape> groupOfShapesSelected = new ArrayList<>();
@@ -69,6 +81,14 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
      */
     private final EnumMap<Shapes, JButton> mainButtons = new EnumMap<>(Shapes.class);
 
+
+    public boolean isMove() {
+        return move;
+    }
+
+    public boolean isGroup() {
+        return group;
+    }
 
     private boolean move = false;
 

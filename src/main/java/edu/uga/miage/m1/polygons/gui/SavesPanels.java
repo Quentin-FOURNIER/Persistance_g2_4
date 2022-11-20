@@ -79,4 +79,12 @@ public class SavesPanels {
             panel.repaint();
         }
     }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public List<List<BaseShape>> getSaves() {
+        return saves;
+    }
 }

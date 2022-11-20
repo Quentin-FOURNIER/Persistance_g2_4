@@ -14,7 +14,7 @@ public class JSonVisitor implements Visitor {
 	private static final String YSTRING = "\"y\": %d";
 
 	public JSonVisitor() {
-		//
+		// empty constructor
     }
 
     @Override
