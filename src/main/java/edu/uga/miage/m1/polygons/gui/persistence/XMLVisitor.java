@@ -1,9 +1,10 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
-import edu.uga.miage.m1.polygons.gui.shapes.Circle;
-import edu.uga.miage.m1.polygons.gui.shapes.Minou;
-import edu.uga.miage.m1.polygons.gui.shapes.Square;
-import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
+import shapeLibrary.com.Circle;
+import shapeLibrary.com.Minou;
+import shapeLibrary.com.Square;
+import shapeLibrary.com.Triangle;
+import shapeLibrary.com.visiteur.Visitor;
 
 /**
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>

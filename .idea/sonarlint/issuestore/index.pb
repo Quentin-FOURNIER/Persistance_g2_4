@@ -4,6 +4,16 @@
 w
 G.idea/sonarlint/issuestore/8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d,b/4/b4a0b63ce8560bbc5de0f9995c20cc861dc2adb3
 r
-Bsrc/test/java/edu/uga/miage/m1/polygons/gui/shapes/CircleTest.java,7/e/7e94dd76108cde0a8cda24dffeed1fb7de828bb5
+Bsrc/test/java/edu/uga/miage/m1/polygons/gui/shapes/CircleTest.java,7\e\7e94dd76108cde0a8cda24dffeed1fb7de828bb5
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+u
+Esrc/test/java/edu/uga/miage/m1/polygons/gui/shapes/BaseShapeTest.java,b\a\ba2aa0b9057d8e64d7e10d366ea420ef193cb649
+x
+Hsrc/test/java/edu/uga/miage/m1/polygons/gui/shapes/ShapeFactoryTest.java,5\d\5d7377ec387df67cdacbfcc78d896e5a9b137181
+r
+Bsrc/test/java/edu/uga/miage/m1/polygons/gui/shapes/SquareTest.java,0\c\0c08f2f8d191e03ac565fdd45d0564704fd6e48e
+|
+Lsrc/test/java/edu/uga/miage/m1/polygons/gui/persistence/JSonVisitorTest.java,9\7\9722e3a8c54acef5a29620b46e42be1e50327f35
+r
+Bsrc/test/java/edu/uga/miage/m1/polygons/gui/JDrawingFrameTest.java,c\d\cde5d4456709a6aa6b523b3231f5a37b0467477e

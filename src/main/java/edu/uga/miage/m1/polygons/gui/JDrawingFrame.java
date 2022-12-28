@@ -22,9 +22,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
 import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
-import edu.uga.miage.m1.polygons.gui.shapes.*;
 import edu.uga.miage.m1.polygons.gui.shapes.Shapes;
 import lombok.extern.java.Log;
+import shapeLibrary.com.BaseShape;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -33,6 +34,9 @@ import org.xml.sax.SAXException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import edu.uga.miage.m1.polygons.gui.shapes.ShapeFactory;
+
+//import shapeLibrary.com.*;
 
 
 /**
