@@ -1,6 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
+import edu.uga.miage.m1.polygons.gui.shapes.Minou;
 import edu.uga.miage.m1.polygons.gui.shapes.Square;
 import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
 
@@ -47,7 +48,17 @@ public class JSonVisitor implements Visitor {
 				"}";
     }
 
-    /**
+	@Override
+	public void visit(Minou minou) {
+		this.representation = "";
+		this.representation += "{" +
+				"\"type\": \"minou\"," +
+				String.format(XSTRING, minou.getX()) +
+				String.format(YSTRING, minou.getY()) +
+				"}";
+	}
+
+	/**
      * @return the representation in JSon example for a Circle
      *
      *         <pre>

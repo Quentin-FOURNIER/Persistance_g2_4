@@ -1,6 +1,7 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
 import edu.uga.miage.m1.polygons.gui.shapes.Circle;
+import edu.uga.miage.m1.polygons.gui.shapes.Minou;
 import edu.uga.miage.m1.polygons.gui.shapes.Square;
 import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
 
@@ -46,7 +47,15 @@ public class XMLVisitor implements Visitor {
 
     }
 
-    /**
+	@Override
+	public void visit(Minou minou) {
+		this.representation = "<shape><type>minou</type>" +
+				String.format(XSTRING, minou.getX()) +
+				String.format(YSTRING, minou.getY()) +
+				SHAPE;
+	}
+
+	/**
      * @return the representation in JSon example for a Triangle:
      *
      *<pre>

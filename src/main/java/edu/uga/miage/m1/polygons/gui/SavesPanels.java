@@ -1,9 +1,6 @@
 package edu.uga.miage.m1.polygons.gui;
 
-import edu.uga.miage.m1.polygons.gui.shapes.BaseShape;
-import edu.uga.miage.m1.polygons.gui.shapes.Circle;
-import edu.uga.miage.m1.polygons.gui.shapes.Square;
-import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
+import edu.uga.miage.m1.polygons.gui.shapes.*;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -43,6 +40,7 @@ public class SavesPanels {
                     case "triangle" -> new Triangle(shape.getX() + 25, shape.getY() + 25);
                     case "circle" -> new Circle(shape.getX() + 25, shape.getY() + 25);
                     case "square" -> new Square(shape.getX() + 25, shape.getY() + 25);
+                    case "minou" -> new Minou(shape.getX() + 25, shape.getY() + 25);
                     default -> throw new IllegalArgumentException();
                 };
 

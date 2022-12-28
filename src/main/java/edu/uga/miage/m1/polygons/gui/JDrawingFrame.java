@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /**
  * This class represents the main application class, which is a JFrame subclass
  * that manages a toolbar of shapes and a drawing canvas.
@@ -114,7 +115,6 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         BufferedImage groupPicture = ImageIO.read(new File("src/main/resources/images/group.png"));
         BufferedImage binPicture = ImageIO.read(new File("src/main/resources/images/bin.png"));
 
-
         // TOOLBAR
         mainToolbar = new JToolBar("Toolbar");
         JButton xmlButton = new JButton("XML", new ImageIcon(exportPicture));
@@ -165,6 +165,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         addShape(Shapes.SQUARE, new ImageIcon(userDir + "/src/main/resources/images/square.png"));
         addShape(Shapes.TRIANGLE, new ImageIcon(userDir + "/src/main/resources/images/triangle.png"));
         addShape(Shapes.CIRCLE, new ImageIcon(userDir + "/src/main/resources/images/circle.png"));
+        addShape(Shapes.MINOU, new ImageIcon(userDir + "/src/main/resources/images/minou.png"));
         //edu/uga/miage/m1/polygons/gui/
         setPreferredSize(new Dimension(1000, 600));
     }

@@ -11,6 +11,7 @@ public class ShapeFactory {
             case TRIANGLE -> new Triangle(x, y);
             case CIRCLE -> new Circle(x, y);
             case SQUARE -> new Square(x, y);
+            case MINOU -> new Minou(x, y);
         };
     }
 
@@ -19,6 +20,7 @@ public class ShapeFactory {
             case "circle" -> Shapes.CIRCLE;
             case "triangle" -> Shapes.TRIANGLE;
             case "square" -> Shapes.SQUARE;
+            case "minou" -> Shapes.MINOU;
             default -> null;
         };
     }
