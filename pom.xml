@@ -52,6 +52,13 @@
             <version>3.23.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sample</groupId>
+            <artifactId>sample</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/Fournier_Gueissaz_Persistance.jar</systemPath>
+        </dependency>
 
     </dependencies>
 
