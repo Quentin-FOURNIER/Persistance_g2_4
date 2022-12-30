@@ -668,7 +668,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                     for (Component sp : s.getShapes()) {
                         try {
                             shapeCreator = jsonFactory.createShape(jsonFactory.stringToEnum(sp.getName()), sp.getX() + 25, sp.getY()+ 25);
-                            shapeCreator.accept(jsonVisitor);
+                           // shapeCreator.accept(jsonVisitor);
                             json.append(jsonVisitor.getRepresentation());
                         } catch (IOException ex) {
                             Logger.getLogger(String.valueOf(Level.WARNING), "Erreur export JSON");
