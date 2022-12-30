@@ -589,7 +589,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            mainPanel.removeAll();
+        	lesShapesLib = new ArrayList<>();
             repaint();
             groupOfShapes = new ArrayList<>();
         }
