@@ -62,9 +62,13 @@ L'autre groupe est composé de :
  - Albane MAUBLANC
  - Mériam BARKAOUI
 
+### Diagramme de class complet avec nouvelle forme 
+![exported_from_idea drawio (1)](https://user-images.githubusercontent.com/69394186/210080355-02529577-fefe-4f97-a820-884ee595dda9.png)
+
+
 ### Contenu du package :
  - Les formes (Square.java, Triangle.java...)
- - Les interfaces Visiteurs
+ - Les interfaces Visiteurs et l'interface SimpleShape
 
 ### Difficultés rencontrées lors de l'utilisation de l'autre package
  - Utilisation d'une autre méthode pour représenter les formes qui nécessite une nouvelle approche de représentation :
