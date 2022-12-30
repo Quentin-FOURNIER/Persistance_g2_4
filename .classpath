@@ -30,5 +30,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/Gueissaz_Fournier_Persistance_Shape2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/loupc/Documents/cours/MASTER MIAGE/annee1/cours/Partron et Composant/Projet/Persistance_g2_4/lib/g1_4_persistence_library.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

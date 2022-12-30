@@ -23,6 +23,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import edu.uga.miage.m1.polygons.gui.persistence.JSonVisitor;
 import edu.uga.miage.m1.polygons.gui.persistence.XMLVisitor;
 import edu.uga.miage.m1.polygons.gui.shapes.Shapes;
+import gui.shapes.ShapeComposite;
+import gui.shapes.SimpleShape;
 import lombok.extern.java.Log;
 import shapeLibrary.com.BaseShape;
 
@@ -35,6 +37,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uga.miage.m1.polygons.gui.shapes.ShapeFactory;
+import edu.uga.miage.m1.polygons.gui.shapes.ShapeFactoryAdpter;
 
 //import shapeLibrary.com.*;
 
@@ -104,6 +107,40 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     private BaseShape constructGroup = new BaseShape();
 
     private final transient SavesPanels savesPanels = new SavesPanels();
+    
+    
+    /**
+     * Début Ajout pour librairie 
+     */
+    private ArrayList<SimpleShape> lesShapesLib = new ArrayList<>();
+    private List<SimpleShape> groupOfShapesSelectedLib = new ArrayList<>(); // ici on pourra mettre les formes composite 
+    private List<SimpleShape> CreationGroupLib = new ArrayList<>(); 
+    private int nbGroup = 10;
+    public void redrawLib() {
+
+    	for (SimpleShape sh : lesShapesLib) { 
+    		System.out.println(sh);
+            Graphics2D g2 = (Graphics2D) mainPanel.getGraphics();
+            sh.draw(g2);	
+
+		}
+		mainPanel.repaint();
+
+    }
+    
+    public SimpleShape getShapeInCoord(int x , int y){
+    	for (SimpleShape sh : lesShapesLib) {
+    		if(sh.isSelected(x, y))
+    			return sh;
+		}
+    	return null;
+    }
+    
+    
+    /**
+     * Fin Ajout pour librairie 
+     */
+
 
 
     /**
@@ -169,7 +206,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         addShape(Shapes.SQUARE, new ImageIcon(userDir + "/src/main/resources/images/square.png"));
         addShape(Shapes.TRIANGLE, new ImageIcon(userDir + "/src/main/resources/images/triangle.png"));
         addShape(Shapes.CIRCLE, new ImageIcon(userDir + "/src/main/resources/images/circle.png"));
-        addShape(Shapes.MINOU, new ImageIcon(userDir + "/src/main/resources/images/minou.png"));
+        addShape(Shapes.MINOU, new ImageIcon(userDir + "/src/main/resources/gui/images/binome_1_4.jpg"));
         //edu/uga/miage/m1/polygons/gui/
         setPreferredSize(new Dimension(1000, 600));
     }
@@ -191,7 +228,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         }
         mainToolbar.add(button);
         mainToolbar.validate();
-        repaint();
+//        repaint();
     }
 
 
@@ -206,13 +243,19 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
     }
 
     public void mouseClicked(MouseEvent evt) {
-        if (mainPanel.contains(evt.getX(), evt.getY()) && getComponent(evt.getX(), evt.getY()) == null && !group) {
+    	SimpleShape shape = getShapeInCoord(evt.getX(),evt.getY());
+//        if (mainPanel.contains(evt.getX(), evt.getY()) && getComponent(evt.getX(), evt.getY()) == null && !group) {
+        if (shape == null && !group && !move) {
+        	System.out.println("here");
             try {
-                BaseShape newGroup = new BaseShape();
-                groupOfShapes.add(newGroup);
-                BaseShape s = new ShapeFactory().createShape(mainSelected, evt.getX(), evt.getY());
-                newGroup.getShapes().add(s);
-                mainPanel.add(s);
+//                BaseShape newGroup = new BaseShape();
+//                groupOfShapes.add(newGroup);
+                SimpleShape s = new ShapeFactoryAdpter().createShape(mainSelected, evt.getX(), evt.getY());
+//                newGroup.getShapes().add(s);
+//                mainPanel.add(s);
+                Graphics2D g2 = (Graphics2D) mainPanel.getGraphics();
+                s.draw(g2);
+                lesShapesLib.add(s);
                 ArrayList<BaseShape> aSupr = new ArrayList<>();
                 for (BaseShape bs : groupOfShapes) {
                     if (bs.getShapes().isEmpty()) {
@@ -226,8 +269,9 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
                 s.accept(jsonVisitor);
                 s.accept(xmlVisitor);
-                mainPanel.repaint();
-
+//                mainPanel.repaint();
+                
+//                redrawLib();
             } catch (IOException e) {
                 throw new IllegalCallerException();
             }
@@ -248,36 +292,49 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
 
     public void mousePressed(MouseEvent evt) {
 
-        BaseShape shape = (BaseShape) getComponent(evt.getX(), evt.getY());
+//        BaseShape shape = (BaseShape) getComponent(evt.getX(), evt.getY());
+    	SimpleShape shape = getShapeInCoord(evt.getX(),evt.getY());
+//		System.out.println("click : " + evt.getX() + " - " + evt.getY());
+    	
+		System.out.println(shape);
 
         if (move) {
-            for (BaseShape s : groupOfShapesSelected) {
-                s.setBorder(null);
-            }
+//            for (BaseShape s : groupOfShapesSelected) {
+//                s.setBorder(null);
+//            }
             move = false;
-            try {
-                savesPanels.addPanel(groupOfShapes);
-            } catch (IOException e) {
-                throw new IllegalCallerException();
-            }
+            groupOfShapesSelectedLib = new ArrayList<>();
+//            redrawLib();
+//            try {
+//                savesPanels.addPanel(groupOfShapes);
+//            } catch (IOException e) {
+//                throw new IllegalCallerException();
+//            }
 
         } else if (!group && shape != null) {
 
-            completeGroupOfShapes(shape);
+//            completeGroupOfShapes(shape);
+        	System.out.println("- deplace groupe");
+        	groupOfShapesSelectedLib.add(shape);
+        	move = true;
+//        	shape.moveTo(evt.getX(), evt.getY());
 
-            for (BaseShape s : groupOfShapesSelected) {
-                s.setPositionRelativeX(evt.getX() - s.getX());
-                s.setPositionRelativeY(evt.getY() - s.getY());
-                move = true;
-                s.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            }
-
+//            for (BaseShape s : groupOfShapesSelected) {
+//                s.setPositionRelativeX(evt.getX() - s.getX());
+//                s.setPositionRelativeY(evt.getY() - s.getY());
+//                move = true;
+//                s.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//            }
 
         } else if (group && shape != null) {
-            shape.setPositionRelativeX(evt.getX() - shape.getX());
-            shape.setPositionRelativeY(evt.getY() - shape.getY());
-            constructGroup.getShapes().add(shape);
-            shape.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        	shape.setIdGroupe(nbGroup);
+        	CreationGroupLib.add(shape);
+        	System.out.println(CreationGroupLib.toString());
+
+//            shape.setPositionRelativeX(evt.getX() - shape.getX());
+//            shape.setPositionRelativeY(evt.getY() - shape.getY());
+//            constructGroup.getShapes().add(shape);
+//            shape.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 
         }
 
@@ -292,9 +349,12 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         modifyLabel(evt);
         if (move) {
             // si on déplace
-            for (BaseShape s : groupOfShapesSelected) {
-                s.setLocation(evt.getX() - s.getPositionRelativeX(), evt.getY() - s.getPositionRelativeY());
+            for (SimpleShape s : groupOfShapesSelectedLib) {
+//                s.setLocation(evt.getX() - s.getPositionRelativeX(), evt.getY() - s.getPositionRelativeY());
+            	s.moveTo(evt.getX(), evt.getY());
             }
+            redrawLib();
+        	
 
         }
     }
@@ -318,7 +378,7 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
                 } else {
                     btn.setBorderPainted(false);
                 }
-                btn.repaint();
+//                btn.repaint();
             }
         }
     }
@@ -396,6 +456,13 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         }
     }
 
+    public ShapeComposite findComPositeWithId(List<ShapeComposite> lesCP, int id) {
+    	for (ShapeComposite shapeComposite : lesCP) {
+			if(shapeComposite.getIdGroupe() == id)
+				return shapeComposite;
+		}
+    	return null;
+    }
     //
     public void loadFromXML(String path) {
         try {
@@ -406,29 +473,66 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             DocumentBuilder dBuilder = factory.newDocumentBuilder();
             Document doc = dBuilder.parse(new File(path));
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("groupe");
+            NodeList nList = doc.getElementsByTagName("shape");
             NodeList elementsGroupe;
             String type;
             BaseShape groupXml;
-            BaseShape creationShape;
-            ShapeFactory shapeFactory = new ShapeFactory();
+//            BaseShape creationShape;
+//            ShapeFactory shapeFactory = new ShapeFactory();
+            
+            /**
+             * Lib code
+             */
+            lesShapesLib = new ArrayList<>();
+            List<ShapeComposite> lesShCompos = new ArrayList<>();
+            SimpleShape creationShape;
+            ShapeFactoryAdpter shapeFactoryLib = new ShapeFactoryAdpter();
+            ShapeComposite leComposite;
             int x;
             int y;
+            int ngroup;
+            
             for (int i = 0; i < nList.getLength(); i++) {
-                groupXml = new BaseShape();
-                Element xmlGroupe = (Element) nList.item(i);
-                elementsGroupe = xmlGroupe.getElementsByTagName("shape");
-                for (int index = 0; index < elementsGroupe.getLength(); index++) {
-                    Element shape = (Element) elementsGroupe.item(index);
-                    type = shape.getElementsByTagName("type").item(0).getTextContent();
-                    y = Integer.parseInt(shape.getElementsByTagName("y").item(0).getTextContent());
-                    x = Integer.parseInt(shape.getElementsByTagName("x").item(0).getTextContent());
-                    creationShape = shapeFactory.createShape(shapeFactory.stringToEnum(type), x, y);
-                    groupXml.getShapes().add(creationShape);
-                    mainPanel.add(creationShape);
-                }
-                groupOfShapes.add(groupXml);
+            	Element shape = (Element) nList.item(i);
+                type = shape.getElementsByTagName("type").item(0).getTextContent();
+            	y = Integer.parseInt(shape.getElementsByTagName("y").item(0).getTextContent());
+            	x = Integer.parseInt(shape.getElementsByTagName("x").item(0).getTextContent());
+            	ngroup = Integer.parseInt(shape.getElementsByTagName("idGroup").item(0).getTextContent());
+            	creationShape = shapeFactoryLib.createShape(shapeFactoryLib.stringToEnum(type), x, y, ngroup);
+            	if(ngroup != 0) {
+            		leComposite = findComPositeWithId(lesShCompos, ngroup);
+            		if(leComposite != null)
+            			leComposite.getShapes().add(creationShape);
+            		else {
+            			List<SimpleShape> temp = new ArrayList<>();
+            			temp.add(creationShape);
+            			leComposite = new ShapeComposite(temp, ngroup);
+            			lesShCompos.add(leComposite); 
+            			lesShapesLib.add(leComposite);
+            		}
+            	}else {
+        			lesShapesLib.add(creationShape);
+            	}
+            	
+
             }
+            redrawLib();
+            
+//            for (int i = 0; i < nList.getLength(); i++) {
+////                groupXml = new BaseShape();
+//                Element xmlGroupe = (Element) nList.item(i);
+//                elementsGroupe = xmlGroupe.getElementsByTagName("shape");
+//                for (int index = 0; index < elementsGroupe.getLength(); index++) {
+//                    Element shape = (Element) elementsGroupe.item(index);
+//                    type = shape.getElementsByTagName("type").item(0).getTextContent();
+//                    y = Integer.parseInt(shape.getElementsByTagName("y").item(0).getTextContent());
+//                    x = Integer.parseInt(shape.getElementsByTagName("x").item(0).getTextContent());
+//                    creationShape = shapeFactory.createShape(shapeFactory.stringToEnum(type), x, y);
+//                    groupXml.getShapes().add(creationShape);
+//                    mainPanel.add(creationShape);
+//                }
+//                groupOfShapes.add(groupXml);
+//            }
 
         } catch (ParserConfigurationException e) {
             Logger.getLogger(String.valueOf(Level.WARNING), "Erreur load XML : Parser");
@@ -448,15 +552,34 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
             group = !group;
             // xxxxx
             if (!group) {
-                for (BaseShape cg : constructGroup.getShapes()) {
-                    cg.setBorder(null);
-                    for (BaseShape gos : groupOfShapes) {
-                        gos.getShapes().remove(cg);
-                    }
-                }
+//                for (BaseShape cg : constructGroup.getShapes()) {
+//                    cg.setBorder(null);
+//                    for (BaseShape gos : groupOfShapes) {
+//                        gos.getShapes().remove(cg);
+//                    }
+//                }
+//
+//                groupOfShapes.add(constructGroup);
+//                constructGroup = new BaseShape();
+            	System.out.println(CreationGroupLib);
+            	ShapeComposite shCompo = new ShapeComposite(CreationGroupLib, nbGroup);
+            	for (SimpleShape simpleShape : CreationGroupLib) {
+            		lesShapesLib.remove(simpleShape);
+				}
+            	lesShapesLib.add(shCompo);
+        		System.out.println("----------");
 
-                groupOfShapes.add(constructGroup);
-                constructGroup = new BaseShape();
+        		System.out.println(lesShapesLib);
+        		
+        		for(SimpleShape s : lesShapesLib){
+        			System.out.println("id groupe " + s.getIdGroupe());
+        			if(s instanceof ShapeComposite) {
+        				System.out.println(((ShapeComposite) s).getShapes());
+        			}
+        		}
+        		
+        		nbGroup++;
+            	CreationGroupLib= new ArrayList<>();
             }
         }
     }
@@ -497,23 +620,31 @@ public class JDrawingFrame extends JFrame implements MouseListener, MouseMotionL
         public void actionPerformed(ActionEvent e) {
 
             StringBuilder xmlString = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\" ?><root><shapes>");
-            ShapeFactory xmlFactory = new ShapeFactory();
-            BaseShape shapeCreator;
-            for (BaseShape s : groupOfShapes) {
-                if (!s.getShapes().isEmpty()) {
-                    xmlString.append("<groupe>");
-                    for (Component sp : s.getShapes()) {
-                        try {
-                            shapeCreator = xmlFactory.createShape(xmlFactory.stringToEnum(sp.getName()), sp.getX() + 25, sp.getY()+ 25);
-                            shapeCreator.accept(xmlVisitor);
-                            xmlString.append(xmlVisitor.getRepresentation());
-                        } catch (IOException ex) {
-                            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur export XML");
-                        }
-                    }
-                    xmlString.append("</groupe>");
-                }
-            }
+//            ShapeFactory xmlFactory = new ShapeFactory();
+//            BaseShape shapeCreator;
+        	xmlVisitor.cleanRepresentation();
+
+            for (SimpleShape sh : lesShapesLib) {
+            	sh.accept(xmlVisitor);
+            	xmlString.append(xmlVisitor.getRepresentation());
+            	xmlVisitor.cleanRepresentation();
+			}
+            
+//            for (BaseShape s : groupOfShapes) {
+//                if (!s.getShapes().isEmpty()) {
+//                    xmlString.append("<groupe>");
+//                    for (Component sp : s.getShapes()) {
+//                        try {
+//                            shapeCreator = xmlFactory.createShape(xmlFactory.stringToEnum(sp.getName()), sp.getX() + 25, sp.getY()+ 25);
+//                            shapeCreator.accept(xmlVisitor);
+//                            xmlString.append(xmlVisitor.getRepresentation());
+//                        } catch (IOException ex) {
+//                            Logger.getLogger(String.valueOf(Level.WARNING), "Erreur export XML");
+//                        }
+//                    }
+//                    xmlString.append("</groupe>");
+//                }
+//            }
 
             xmlString.append("</shapes></root>");
             String path = chooserPath(FileType.DOSSIER);
