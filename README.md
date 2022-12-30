@@ -72,3 +72,8 @@ L'autre groupe est composé de :
     - Utilisation de jLabel pour notre part.
  - Le package met en place une gestion différente des groupes, qui permet par exemple d'avoir des groupes de groupe à une profondeur infini. Nous avions fait le choix de ne pas pouvoir faire de groupes de groupes et de différentier chaque forme pour notre part puisque le résultat est le même pour l'utilisateur. Celui-ci ne voit qu'un groupe bouger.
     - L'import et l'export changent en conséquence.
+    
+### Diagramme de composant
+<img width="434" alt="image" src="https://user-images.githubusercontent.com/94804326/210079355-c9f0452e-539c-4b6f-bef1-e0a87b2c5c16.png">
+
+
