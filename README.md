@@ -13,17 +13,19 @@ Pour pouvoir exécuter ce projet, vous aurez besoin de :
 ## Installation
 1. Téléchargez ou clonez ce dépôt sur votre ordinateur
 2. Ouvrez le projet dans votre environnement de développement Java
-__3. Ajouter les libraire (.jar) __: 
-     3.1 Eclipse :
-      3.1.1 clique droit sur le projet 
-      3.1.2 Sélectionner Properties
-      3.1.3 Sélectionner "Java build Path"
-      3.1.4 selectionner "Classpath" dans l'onglet "librarie"
-      3.1.5 Cliquer sur "Add Jars" 
-      3.1.6 Selectionner les deux librairies dans le dossier "lib" du projet
-      3.1.7 Valider
-      3.1.8 Cliquer sur "Apply"
-3. Exécutez le fichier App.java pour lancer l'application
+3. **Ajouter les libraire (.jar)** :
+
+
+          3.1. Eclipse :
+                    3.1.1. Clique droit sur le projet 
+                    3.1.2. Sélectionner Properties
+                    3.1.3. Sélectionner "Java build Path"
+                    3.1.4. Sélectionner "Classpath" dans l'onglet "libraries"
+                    3.1.5. Cliquer sur "Add Jars"
+                    3.1.6. Sélectionner les deux librairies dans le dossier "lib" du projet
+                    3.1.7. Valider
+                    3.1.8. Cliquer sur "Apply"
+4. Exécutez le fichier App.java pour lancer l'application
 
 ## Patrons
 ### Simple factory
