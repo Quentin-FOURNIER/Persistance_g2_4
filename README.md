@@ -53,12 +53,22 @@ Le plus simple que nous ayons trouvé pour implémenter cette fonctionnalité es
 
 ### Conclusion patrons
 L’utilisation des patrons dans un code permet d’augmenter la maintenabilité de celui- ci. Cependant, certains patrons comme le visiteur, s’ils ne sont pas connus par la personne qui maintient le code, rendent la relecture plus fastidieuse.
+
 ## Composants
-Cette partie consiste à crée un composant, puis à l'échanger avec un autre groupe.
+Cette partie consiste à créer un composant, puis à l'échanger avec un autre groupe.
 
-### Groupe binome
+### Groupe binôme
 L'autre groupe est composé de :
-  - Albane 
-  - Mériam
+ - Albane MAUBLANC
+ - Mériam BARKAOUI
 
-Le composant utlisé contient les formes (Square.java, Triangle.java...) 
+### Contenu du package :
+ - Les formes (Square.java, Triangle.java...)
+ - Les interfaces Visiteurs
+
+### Difficultés rencontrées lors de l'utilisation de l'autre package
+ - Utilisation d'une autre méthode pour représenter les formes qui nécessite une nouvelle approche de représentation :
+    - Utilisation de graphics2d pour leur part.
+    - Utilisation de jLabel pour notre part.
+ - Le package met en place une gestion différente des groupes, qui permet par exemple d'avoir des groupes de groupe à une profondeur infini. Nous avions fait le choix de ne pas pouvoir faire de groupes de groupes et de différentier chaque forme pour notre part puisque le résultat est le même pour l'utilisateur. Celui-ci ne voit qu'un groupe bouger.
+    - L'import et l'export changent en conséquence.
