@@ -1,6 +1,11 @@
 package edu.uga.miage.m1.polygons.gui;
 
 import edu.uga.miage.m1.polygons.gui.shapes.*;
+import shapeLibrary.com.BaseShape;
+import shapeLibrary.com.Circle;
+import shapeLibrary.com.Minou;
+import shapeLibrary.com.Square;
+import shapeLibrary.com.Triangle;
 
 import javax.swing.*;
 import java.io.IOException;

@@ -1,9 +1,8 @@
 package edu.uga.miage.m1.polygons.gui.persistence;
 
-import edu.uga.miage.m1.polygons.gui.shapes.Circle;
-import edu.uga.miage.m1.polygons.gui.shapes.Minou;
-import edu.uga.miage.m1.polygons.gui.shapes.Square;
-import edu.uga.miage.m1.polygons.gui.shapes.Triangle;
+import gui.persistence.Visitor;
+import gui.shapes.*;
+
 
 /**
  * @author <a href="mailto:christophe.saint-marcel@univ-grenoble-alpes.fr">Christophe</a>
@@ -49,7 +48,7 @@ public class JSonVisitor implements Visitor {
     }
 
 	@Override
-	public void visit(Minou minou) {
+	public void visit(Image minou) {
 		this.representation = "";
 		this.representation += "{" +
 				"\"type\": \"minou\"," +

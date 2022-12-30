@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5d724364-c096-4ae0-9361-37e145464136" name="Changes" comment="Visitor with simple factory ok">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/c/3c9253bba5ec39dc48595bd98694f9b61c2b6fbc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/3/43ef79330a183a4b3f6d61dfc1c4a5d9d2335ba4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/6/66a8a27b816bf50c2cda7d568f25f222add3a95d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/9/691e97c639ef86eed00359f6e3e9413db372988b" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/b/6badc8f5d296a07f3f5095c7aba928ee42903901" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/5/75a52d5ad802734e8cba417f02fadad4dbf5904c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/a/7ae6e7f4eb3971619796ade23d0b1b3d805d6ce5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/0/a09d9862228535c50aab6abcd96dda3932bd461c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/a/aae6f372181523c15c92b9fc6014b9b069dbd15b" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/e/ceae5190aaaf9c41475ace57f55bc30d2f72febf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/c/ecd63d961ee871305479c869bc27ebacb711af37" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/a/fad004d4e84494b61ebb4b97f3a6981aff59cfb5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/d/cde5d4456709a6aa6b523b3231f5a37b0467477e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/uga/miage/m1/polygons/gui/persistence/JSonVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/uga/miage/m1/polygons/gui/persistence/JSonVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/persistence/JSonVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/persistence/JSonVisitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/persistence/JSonVisitorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/persistence/JSonVisitorTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitorTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/persistence/XMLVisitorTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/shapes/CircleTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/shapes/CircleTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/shapes/SquareTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/shapes/SquareTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/shapes/TriangleTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/edu/uga/miage/m1/polygons/gui/shapes/TriangleTest.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit4 Test Class" />
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Ff5m1Vlohj2DH9QzBL4VgdvLFd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Project.color&quot;: &quot;58ffed&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/loupc/Documents/cours/MASTER MIAGE/annee1/cours/Partron et Composant/Projet/Persistance_g2_4&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;oracle&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Ecole\Master\Master_1\Semestre_1\Patrons et composants\Persistance_g2_4\src\main\java\edu\uga\miage\m1\polygons\gui" />
+      <recent name="D:\Ecole\Master\Master_1\Semestre_1\Patrons et composants\Persistance_g2_4\src\main\java" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Ecole\Master\Master_1\Semestre_1\Patrons et composants\Persistance_g2_4\src\main\java\edu\uga\miage\m1\polygons\gui" />
+      <recent name="D:\Ecole\Master\Master_1\Semestre_1\Patrons et composants\Persistance_g2_4\src\main\resources" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="edu.uga.miage.m1.polygons.gui.shapes" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="edu.uga.miage.m1.polygons.gui.persistence" />
+      <recent name="edu.uga.miage.m1.polygons.gui.shapes" />
+      <recent name="edu.uga.miage.m1.polygons.gui" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.JDrawingFrameTest">
+    <configuration name="BaseShapeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Persistance_g2_4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uga.miage.m1.polygons.gui.shapes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.uga.miage.m1.polygons.gui.shapes" />
+      <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.shapes.BaseShapeTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CircleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Persistance_g2_4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uga.miage.m1.polygons.gui.shapes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.uga.miage.m1.polygons.gui.shapes" />
+      <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.shapes.CircleTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JDrawingFrameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Persistance_g2_4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uga.miage.m1.polygons.gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.uga.miage.m1.polygons.gui" />
+      <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.JDrawingFrameTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ShapeFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Persistance_g2_4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uga.miage.m1.polygons.gui.shapes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.uga.miage.m1.polygons.gui.shapes" />
+      <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.shapes.ShapeFactoryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SquareTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Persistance_g2_4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.uga.miage.m1.polygons.gui.shapes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.uga.miage.m1.polygons.gui.shapes" />
+      <option name="MAIN_CLASS_NAME" value="edu.uga.miage.m1.polygons.gui.shapes.SquareTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.JDrawingFrameTest" />
+        <item itemvalue="JUnit.SquareTest" />
+        <item itemvalue="JUnit.ShapeFactoryTest" />
+        <item itemvalue="JUnit.CircleTest" />
+        <item itemvalue="JUnit.BaseShapeTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5d724364-c096-4ae0-9361-37e145464136" name="Changes" comment="" />
+      <created>1664870455409</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1664870455409</updated>
+      <workItem from="1664870510683" duration="1254000" />
+      <workItem from="1664881025487" duration="319000" />
+      <workItem from="1664881389228" duration="318000" />
+      <workItem from="1664911387876" duration="2468000" />
+      <workItem from="1664914006045" duration="2039000" />
+      <workItem from="1664948640874" duration="12542000" />
+      <workItem from="1665041271244" duration="787000" />
+      <workItem from="1665042067434" duration="1244000" />
+      <workItem from="1665045459702" duration="1876000" />
+      <workItem from="1665076642181" duration="8759000" />
+      <workItem from="1665121784213" duration="6716000" />
+      <workItem from="1665145809758" duration="990000" />
+      <workItem from="1665153452393" duration="637000" />
+      <workItem from="1665163629324" duration="189000" />
+      <workItem from="1665173475278" duration="209000" />
+      <workItem from="1665251593794" duration="31000" />
+      <workItem from="1665321377189" duration="2169000" />
+      <workItem from="1665401653989" duration="279000" />
+      <workItem from="1665476523610" duration="1276000" />
+      <workItem from="1665656835988" duration="2218000" />
+      <workItem from="1665663186915" duration="3269000" />
+      <workItem from="1665666757513" duration="249000" />
+      <workItem from="1665734049123" duration="1224000" />
+      <workItem from="1665910298578" duration="4346000" />
+      <workItem from="1666451318918" duration="5424000" />
+      <workItem from="1666507089707" duration="697000" />
+      <workItem from="1668081729893" duration="481000" />
+      <workItem from="1668268839868" duration="436000" />
+      <workItem from="1668430480628" duration="2959000" />
+      <workItem from="1668632108940" duration="1882000" />
+      <workItem from="1668668848826" duration="4218000" />
+      <workItem from="1668771548924" duration="1770000" />
+      <workItem from="1668852632026" duration="1758000" />
+      <workItem from="1668865972797" duration="6712000" />
+      <workItem from="1668880384760" duration="1025000" />
+      <workItem from="1668887829715" duration="6791000" />
+      <workItem from="1668938989196" duration="4357000" />
+      <workItem from="1670431174374" duration="1010000" />
+      <workItem from="1670432489897" duration="1943000" />
+      <workItem from="1671175539824" duration="1016000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial push">
+      <created>1664871086529</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1664871086529</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Initial push">
+      <created>1664871690277</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1664871690277</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Ajout coverage + coverage sur circle, square &amp; triangle sans test sur l'ihm.">
+      <created>1666454157114</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1666454157114</updated>
+    </task>
+    <task id="LOCAL-00004" summary="SimpleFactory for create shape">
+      <created>1668669046444</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1668669046444</updated>
+    </task>
+    <task id="LOCAL-00005" summary="SimpleFactory for create shape">
+      <created>1668880732885</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668880732886</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Visitor with simple factory ok">
+      <created>1668942070443</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1668942070443</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+    <MESSAGE value="Initial push" />
+    <MESSAGE value="Push après import json" />
+    <MESSAGE value="Ajout coverage + coverage sur circle, square &amp; triangle sans test sur l'ihm." />
+    <MESSAGE value="SimpleFactory for create shape" />
+    <MESSAGE value="Visitor with simple factory" />
+    <MESSAGE value="Visitor with simple factory ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="Visitor with simple factory ok" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Persistance_g2_4$XMLVisitorTest.ic" NAME="XMLVisitorTest Coverage Results" MODIFIED="1666445548312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>edu.uga.miage.m1.polygons.gui.persistence.*</FILTER>
+    </SUITE>
+  </component>
+</project>
