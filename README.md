@@ -1,10 +1,19 @@
 # Projet "Persistance" - M1 MIAGE · Patrons et Composants
 
 
-## Groupe 2_4
+## Auteurs (Groupe 2 - 4)
 - Quentin FOURNIER
 - Emmanuel GUEISSAZ
 
+## Prérequis
+Pour pouvoir exécuter ce projet, vous aurez besoin de :
+- Un environnement de développement Java
+- JDK 17 installé sur votre ordinateur
+
+## Installation
+1. Téléchargez ou clonez ce dépôt sur votre ordinateur
+2. Ouvrez le projet dans votre environnement de développement Java
+3. Exécutez le fichier App.java pour lancer l'application
 
 ## Patrons
 ### Simple factory
