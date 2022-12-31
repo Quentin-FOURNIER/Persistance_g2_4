@@ -84,7 +84,7 @@ L'autre groupe est composé de :
 
 ### Difficultés rencontrées lors de l'utilisation de l'autre package
  - Utilisation d'une autre méthode pour représenter les formes qui nécessite une nouvelle approche de représentation :
-    - Utilisation de graphics2d pour leur part.
+    - Utilisation de Graphics2d pour leur part.
     - Utilisation de jLabel pour notre part.
  - Le package met en place une gestion différente des groupes, qui permet par exemple d'avoir des groupes de groupe à une profondeur infini. Nous avions fait le choix de ne pas pouvoir faire de groupes de groupes et de différentier chaque forme pour notre part puisque le résultat est le même pour l'utilisateur. Celui-ci ne voit qu'un groupe bouger.
     - L'import et l'export changent en conséquence.
@@ -92,4 +92,10 @@ L'autre groupe est composé de :
 ### Diagramme de composant
 <img width="434" alt="image" src="https://user-images.githubusercontent.com/94804326/210079355-c9f0452e-539c-4b6f-bef1-e0a87b2c5c16.png">
 
+### Résultat
+ - Qualité Visuel :
+   - Perte de fluidité (clignotement), les formes ne sont plus des components, mais des Graphics2d nous obligeant à repeindre nous-même le panel.
+   - Une fois le déplacement fini, les formes disparaissent, pour les revoirs, il faut soit en déplacer une nouvelle sois cliquer à son emplacement et la déplacer.
+ - Fonctionnalité
+   - Avec la librairie, le composite est bien respecté, on peut créer des groupes de groupes de groupes...
 
